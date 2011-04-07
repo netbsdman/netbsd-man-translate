@@ -1,0 +1,3 @@
+[submodule "orig-share_man"]
+	path = orig-share_man
+	url = git@gitorious.org:netbsd-man-translate/netbsd-orig-share_man.git
