@@ -48,11 +48,11 @@
 .Fa len
 バイト分データコピーする。
 .Pp
+.Xr uiomove 9
+によって引き起こされた(古い)ページフォルトハンドラを
 .Fn kcopy
-は保存/復元をしなければならない
-must save and restore the old fault handler since it is called by
-.Xr uiomove 9 ,
-which may be in the path of servicing a 致命的でない通常のページフォルト.
+は保存/復元をしなければならない。なぜなら致命的でない通常のページフォルトの
+処理中のであるかもしれないから。
 .Fn kcopy
 は成功すると0を返し、失敗するとエラー番号を返す。
 .Sh SEE ALSO
