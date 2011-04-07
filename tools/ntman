@@ -1,11 +1,24 @@
 #!/bin/sh
 
+OPT=`getopt -o o -- "$@"`
+eval set -- "$OPT"
+
+for i; do
+    case $i in
+	--) shift; break;;
+	-o) OPT_O="true";;
+    esac
+    shift
+done
+
+
 MAN_SEC=$1
 MAN_PAGE=$2
 MAN_FILE=ja/man$MAN_SEC/$MAN_PAGE.$MAN_SEC
+test "$OPT_O" = "true" && MAN_FILE=$MAN_FILE.orig
 
 test -n "$MAN_SEC" || exit 1
 test -n "$MAN_PAGE" || exit 2
 test -f "$MAN_FILE" || exit 3
 
-groff -K utf8 -mandoc -Tutf8 ja/man$1/$2.$1 | lv
+groff -K utf8 -mandoc -Tutf8 $MAN_FILE | lv
