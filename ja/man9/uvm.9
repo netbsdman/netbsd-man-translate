@@ -1013,13 +1013,14 @@ int pddeact;    /* number of pages daemon deactivates */
 .Ed
 .Sh NOTES
 .Fn uvm_chgkprot
-is only available if the kernel has been compiled with options
-.Dv KGDB .
+はカーネルを
+.Dv KGDB
+オプション付きでコンパイルした時のみ有効。
 .Pp
-All structure and types whose names begin with
 .Dq vm_
-will be renamed to
-.Dq uvm_ .
+で始まる名前の構造体やタイプは全て
+.Dq uvm_
+に名称変更される予定である。
 .Sh SEE ALSO
 .Xr swapctl 2 ,
 .Xr getloadavg 3 ,
@@ -1041,41 +1042,40 @@ will be renamed to
 .%U http://www.usenix.org/event/usenix99/full_papers/cranor/cranor.pdf
 .Re
 .Sh HISTORY
-UVM is a new VM system developed at Washington University in St. Louis
-(Missouri).
-UVM's roots lie partly in the Mach-based
+UVM は St. Louis (Missouri) の Washington 大学で設計された新しい VM システム。
+UVM の起源の一部は Mach ベース
 .Bx 4.4
-VM system, the
+VM システムや
 .Fx
-VM system, and the SunOS 4 VM system.
-UVM's basic structure is based on the
+VM システム、SunOS 4 VM システムである。
+UVM の基本構成は
 .Bx 4.4
-VM system.
-UVM's new anonymous memory system is based on the
-anonymous memory system found in the SunOS 4 VM (as described in papers
-published by Sun Microsystems, Inc.).
-UVM also includes a number of features new to
+VM システムに基づいている。
+UVM の新しい無名メモリシステムは SunOS 4 VM に見られる。
+(サンマイクロシステムズからの論文がある)
+UVM はまた
 .Bx
-including page loanout, map entry passing, simplified
-copy-on-write, and clustered anonymous memory pageout.
-UVM is also further documented in an August 1998 dissertation by
-Charles D. Cranor.
+にとって新しい機能である、
+ページ貸し出しとマップエントリのパス、単純化されたコピーオンライト、
+密集した無名メモリのページアウトをサポートする。
+
+UVM に関するより詳細な情報は Charles D. Cranor による論文(1998年8月)にある。
 .Pp
-UVM appeared in
-.Nx 1.4 .
+UVM は
+.Nx 1.4
+から登場した。
 .Sh AUTHORS
 Charles D. Cranor
 .Aq chuck@ccrc.wustl.edu
-designed and implemented UVM.
+が UVM の設計と実装を行なった。
 .Pp
 Matthew Green
 .Aq mrg@eterna.com.au
-wrote the swap-space management code and handled the logistical issues
-involved with merging UVM into the
+はスワップ領域管理コードを作成し、また UVM を
 .Nx
-source tree.
+ソースコードツリーに取り込むことによる課題を解決した。
 .Pp
 Chuck Silvers
 .Aq chuq@chuq.com
-implemented the aobj pager, thus allowing UVM to support System V shared
-memory and process swapping.
+aobj ページャを実装して、UVM は System V の共有メモリとプロセススワップを
+サポートするようになった。
