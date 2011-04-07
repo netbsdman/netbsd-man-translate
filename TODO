@@ -1,3 +1,4 @@
+* translate: complete uvm.9 translation
 * script: git-cvsimport orig-share_man submodule
 * script: groff viewer
 * script: check original update
