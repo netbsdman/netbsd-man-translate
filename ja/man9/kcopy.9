@@ -32,27 +32,29 @@
 .Os
 .Sh NAME
 .Nm kcopy
-.Nd copy data with abort on page fault
+.Nd ページフォルトによるアボート中のデータコピー
 .Sh SYNOPSIS
 .In sys/systm.h
 .Ft int
 .Fn kcopy "const void *src" "void *dst" "size_t len"
 .Sh DESCRIPTION
+致命的ページフォルトが発生してアボート中においても、
 .Fn kcopy
-copies
-.Fa len
-bytes from
+は
 .Fa src
-to
-.Fa dst ,
-aborting if a fatal page fault is encountered.
+から
+.Fa dst
+へ
+.Fa len
+バイト分データコピーする。
 .Pp
 .Fn kcopy
+は保存/復元をしなければならない
 must save and restore the old fault handler since it is called by
 .Xr uiomove 9 ,
-which may be in the path of servicing a non-fatal page fault.
+which may be in the path of servicing a 致命的でない通常のページフォルト.
 .Fn kcopy
-returns 0 on success and an error number on failure.
+は成功すると0を返し、失敗するとエラー番号を返す。
 .Sh SEE ALSO
 .Xr errno 2 ,
 .Xr memcpy 9 ,
