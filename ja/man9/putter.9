@@ -29,20 +29,20 @@
 .Os
 .Sh NAME
 .Nm putter
-.Nd Pass-to-Userspace Transporter
+.Nd ユーザ空間パス転送
 .Sh DESCRIPTION
-The
 .Nm
-subsystem is used for request-response handling of userspace components.
-It currently provides routines for associating a file descriptor
-with a subsystem data structure instance and I/O routines.
-Users of the facility must fill out the callbacks in
+サブシステムはユーザ空間内コンポーネントへの要求/応答手段として用いられる。
+現状では、本サブシステムのデータ構造や I/O ルーチンをファイルディスクリプタに
+関連付ける機能を持つ。
+
+.Nm
+を使用するには
 .Va struct putter_ops
-to integrate with
-.Nm .
+のメンバであるコールバック関数を埋めなければならない。
 .Sh SEE ALSO
 .Xr pud 4 ,
 .Xr puffs 4
 .Sh BUGS
-Under construction.
-Interfaces may and will change.
+作成中。
+将来インターフェイスに変更がある可能性有り。
