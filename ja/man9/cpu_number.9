@@ -32,22 +32,22 @@
 .Os
 .Sh NAME
 .Nm cpu_number
-.Nd unique
+.Nd ユニークな
 .Tn CPU
-identification number
+識別番号
 .Sh SYNOPSIS
 .In sys/types.h
 .In machine/cpu.h
 .Ft cpuid_t
 .Fn cpu_number "void"
 .Sh DESCRIPTION
-The
 .Fn cpu_number
-function returns an unique
+関数はユニークな
 .Tn CPU
-identification number for the
+識別番号を返す。
+上記番号は自スレッドが動作している
 .Tn CPU
-that this thread is running on.
-It may also be implemented as a macro.
+を示している。
+このインターフェイスは関数ではなくマクロとして実装される可能性がある。
 .Sh SEE ALSO
 .Xr curcpu 9
