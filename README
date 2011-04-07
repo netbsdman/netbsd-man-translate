@@ -1,2 +1,2 @@
 You can see jman `groff -K utf8 -mandoc -Tutf8 ja/man9/uvm.9` on Debian sid.
-
+(need groff >= 1.21 ?)
