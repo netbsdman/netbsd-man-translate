@@ -32,23 +32,24 @@
 .Os
 .Sh NAME
 .Nm vfs
-.Nd kernel interface to file systems
+.Nd ファイルシステム向けカーネルインターフェイス
 .Sh DESCRIPTION
-The virtual file system,
-.Nm ,
-is the kernel interface to file systems.
-The interface specifies the calls for the kernel to access file systems.
-It also specifies the core functionality that a file system must provide
-to the kernel.
-.Pp
-The focus of
+仮想ファイルシステムである
 .Nm
-activity is the
+はファイルシステムへのカーネルインターフェイス。
+このインターフェイスはファイルシステムアクセスのカーネル呼び出しを規定する。
+それはまたファイルシステムというものがカーネルに提供する中核となる機能
+についても規定する。
+.Pp
+.Nm
+の動作の焦点は
 .Em vnode
-and is discussed in
-.Xr vnode 9 .
-File system operations such as mounting and syncing are discussed in
-.Xr vfsops 9 .
+であり、
+.Xr vnode 9
+で議論する。
+マウントや同期のようなファイルシステム操作は
+.Xr vfsops 9
+で議論する。
 .Sh SEE ALSO
 .Xr intro 9 ,
 .Xr vfsops 9 ,
