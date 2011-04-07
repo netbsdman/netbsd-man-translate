@@ -11,9 +11,13 @@ for i; do
     shift
 done
 
-
-MAN_SEC=$1
-MAN_PAGE=$2
+if test -z "$2"; then
+    MAN_SEC=9 # xxx
+    MAN_PAGE=$1
+else
+    MAN_SEC=$1
+    MAN_PAGE=$2
+fi
 MAN_FILE=ja/man$MAN_SEC/$MAN_PAGE.$MAN_SEC
 test "$OPT_O" = "true" && MAN_FILE=$MAN_FILE.orig
 
