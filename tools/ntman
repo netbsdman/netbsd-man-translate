@@ -1,3 +1,11 @@
 #!/bin/sh
 
+MAN_SEC=$1
+MAN_PAGE=$2
+MAN_FILE=ja/man$MAN_SEC/$MAN_PAGE.$MAN_SEC
+
+test -n "$MAN_SEC" || exit 1
+test -n "$MAN_PAGE" || exit 2
+test -f "$MAN_FILE" || exit 3
+
 groff -K utf8 -mandoc -Tutf8 ja/man$1/$2.$1 | lv
