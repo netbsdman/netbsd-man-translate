@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE_COMP=$1
+FILE_COMP_B=`basename $FILE_COMP`
+
+test -f "$FILE_COMP" || exit 1
+
+git add $FILE_COMP
+git commit -m "complete translate $FILE_COMP_B"
