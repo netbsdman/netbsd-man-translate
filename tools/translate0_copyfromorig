@@ -1,0 +1,14 @@
+#!/bin/sh
+
+FILE_FROM=$1
+FILE_TRANS=`basename $FILE_FROM`
+FILE_ORIG=$FILE_TRANS.orig
+
+test -f $FILE_FROM || exit 1
+test -f ja/man9/$FILE_TRANS && exit 2
+test -f ja/man9/$FILE_ORIG && exit 3
+
+cp $FILE_FROM ja/man9/
+cp $FILE_FROM ja/man9/$FILE_ORIG
+git add ja/man9/$FILE_TRANS ja/man9/$FILE_ORIG
+git commit -m "copy $FILE_TRANS from orig"
