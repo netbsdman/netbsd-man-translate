@@ -1,16 +1,10 @@
 #!/bin/sh
 
-FILE_FROM=$1
-FILE_TRANS=`basename $FILE_FROM`
-FILE_ORIG=$FILE_TRANS.orig
-MAN_SEC=9 # xxx
+cd org_netbsd/ &&
 
-test -z "$FILE_TRANS" && exit 4
-test -f "$FILE_FROM" || exit 1
-test -f ja/man$MAN_SEC/$FILE_TRANS && exit 2
-test -f ja/man$MAN_SEC/$FILE_ORIG && exit 3
+FILES_ORIG=`find src/share/man/man9 -name "*.9"`
 
-cp $FILE_FROM ja/man$MAN_SEC/
-cp $FILE_FROM ja/man$MAN_SEC/$FILE_ORIG
-git add ja/man$MAN_SEC/$FILE_TRANS ja/man$MAN_SEC/$FILE_ORIG
-git commit -m "copy $FILE_TRANS from orig"
+for i in $FILES_ORIG; do
+    mkdir -p ../ja/`dirname $i`
+    cp $i ../ja/$i
+done
