@@ -3,6 +3,8 @@
 DIR_TOOLS=$PWD/tools/
 TOPDIR=$PWD
 
+rm -rf $TOPDIR/html/*
+
 cd $TOPDIR/ja/ &&
 
 FILES_MAN=`find src/share/man/man9 -name "*.9"`
