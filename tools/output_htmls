@@ -14,7 +14,9 @@ for i in $FILES_MAN $FILES_JMAN; do
 done
 
 cd $TOPDIR/html/ &&
-tree -H src/share/man/man9 src/share/man/man9 > tree.html
+tree -H src/share/man/man9 src/share/man/man9 | \
+    sed -e 's/\(<a href=\".*\"\)/\1 target=\"manpage\"/' \
+        -e 's/\(BODY {\)/\1 font-size: small;/' > tree.html
 
 cat > index.html <<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -25,10 +27,13 @@ cat > index.html <<EOF
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 </head>
 <body>
-<iframe src="tree.html" name="tree" height=96% width=28%>
+See
+<a href="https://gitorious.org/netbsd-man-translate">https://gitorious.org/netbsd-man-translate</a> for source code.
+<hr>
+<iframe src="tree.html" name="tree" height=90% width=30%>
 tree iframe window.
 </iframe>
-<iframe src="src/share/man/man9/uvm.9.ja.html" name="manpage" height=96% width=70%>
+<iframe src="src/share/man/man9/uvm.9.ja.html" name="manpage" height=90% width=68%>
 manpage iframe window
 </iframe>
 </body>
