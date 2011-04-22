@@ -1,0 +1,187 @@
+#!/usr/bin/perl -T
+#
+# Copyright (c) 1996-2011 Wolfram Schneider <wosch@FreeBSD.org>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+# man.cgi - HTML hypertext FreeBSD man page interface
+#
+# based on bsdi-man.pl,v 2.17 1995/10/05 16:48:58 sanders Exp
+# bsdi-man -- HTML hypertext BSDI man page interface
+# based on bsdi-man.pl,v 2.10 1993/10/02 06:13:23 sanders Exp
+# by polk@BSDI.COM 1/10/95
+#	BSDI	Id: bsdi-man,v 1.2 1995/01/11 02:30:01 polk Exp
+# Dual CGI/Plexus mode and new interface by sanders@bsdi.com 9/22/1995
+#
+# $Id: man.cgi,v 1.172 2007/11/28 18:51:29 hrs Exp $
+# $FreeBSD: www/en/cgi/man.cgi,v 1.261 2011/03/29 21:54:40 wosch Exp $
+
+sub html_header2 {
+    my ( $title, $head ) = @_;
+
+    return qq{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>$title</title>
+$head
+</head> 
+<body>
+};
+}
+
+sub html_header {
+    my ( $title ) = @_;
+
+    my $html_meta = q|
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<style type="text/css">
+<!--
+b { color: #996600; }
+i { color: #008000; }
+-->
+</style>
+|;
+
+    return &html_header2( $title, $html_meta )
+}
+
+# xxx TODO xxx
+sub mlnk {
+    local ($matched) = @_;
+    local ( $link, $section );
+    ( $link = $matched ) =~ s/[\s]+//g;
+    $link =~ s/<\/?[IB]>//ig;
+    ( $link, $section ) = ( $link =~ m/^([^\(]*)\((.*)\)/ );
+    $link    = &encode_url($link);
+    $section = &encode_url($section);
+    local ($manpath) = &encode_url($manpath);
+    return qq{<a href="$BASE?query=$link}
+      . qq{&amp;sektion=$section&amp;apropos=0&amp;manpath=$manpath">$matched</a>};
+}
+
+# encode unknown data for use in a URL <a href="...">
+sub encode_url {
+    local ($_) = @_;
+
+    # rfc1738 says that ";"|"/"|"?"|":"|"@"|"&"|"=" may be reserved.
+    # And % is the escape character so we escape it along with
+    # single-quote('), double-quote("), grave accent(`), less than(<),
+    # greater than(>), and non-US-ASCII characters (binary data),
+    # and white space.  Whew.
+s/([\000-\032\;\/\?\:\@\&\=\%\'\"\`\<\>\177-\377 ])/sprintf('%%%02x',ord($1))/eg;
+    s/%20/+/g;
+    $_;
+}
+
+# encode unknown text data for using as HTML,
+# treats ^H as overstrike ala nroff.
+sub encode_data {
+    local ($_) = @_;
+    local ($str);
+
+    # Escape &, < and >
+    s,\010[><&],,g;
+    s/\&/\&amp\;/g;
+    s/\</\&lt\;/g;
+    s/\>/\&gt\;/g;
+
+    s,((_\010[^_])+),($str = $1) =~ s/.\010//g; "<i>$str</i>";,ge;
+    s,((.\010.)+),($str = $1) =~ s/.\010//g; "<b>$str</b>";,ge;
+
+ #s,((_\010.)+),($str = $1) =~ s/.\010//g; "<i>$str</i>";,ge;
+ #s,(.\010)+,$1,g;
+ #if (!s,((.\010.)+\s+(.\010.)+),($str = $1) =~ s/.\010//g; "<b>$str</b>";,ge) {
+ # s,(([^_]\010.)+),($str = $1) =~ s/[^_]\010//g; "<b>$str</b>";,ge;
+ # s,(([_]\010.)+),($str = $1) =~ s/[_]\010//g; "<i>$str</i>";,ge;
+ #}
+ # Escape binary data except for ^H which we process below
+ # \375 gets turned into the & for the entity reference
+ #s/([^\010\012\015\032-\176])/sprintf('\375#%03d;',ord($1))/eg;
+ # Process ^H sequences, we use \376 and \377 (already escaped
+ # above) to stand in for < and > until those characters can
+ # be properly escaped below.
+ #s,\376[IB]\377_\376/[IB]\377,,g;
+ #s/.[\b]//g;			# just do an erase for anything else
+ # Now convert our magic chars into our tag markers
+ #s/\375/\&/g; s/\376/</g; s/\377/>/g;
+
+    # cleanup all the rest
+    s,.\010,,g;
+
+    $_;
+}
+
+sub man {
+    print "<pre>\n";
+
+    local ($space) = 1;
+    local (@sect);
+    local ( $i, $j );
+    while (<STDIN>) {
+
+        # remove tailing white space
+        if (/^\s+$/) {
+            next if $space;
+            $space = 1;
+        }
+        else {
+            $space = 0;
+        }
+
+        $_ = &encode_data($_);
+        if ( $enable_include_links
+            && m,(<b>)?\#include(</b>)?\s+(<b>)?\&lt\;(.*\.h)\&gt\;(</b>)?, )
+        {
+            $match = $4;
+            ( $regexp = $match ) =~ s/\./\\\./;
+            s,$regexp,\<a href=\"$BASE/usr/include/$match\"\>$match\</A\>,;
+        }
+        /^\s/ &&    # skip headers
+s,((<[IB]>)?[\w\_\.\-]+\s*(</[IB]>)?\s*\(([1-9ln][a-zA-Z]*)\)),&mlnk($1),oige;
+
+        # detect E-Mail Addreses in manpages
+        if ( $enable_mailto_links && /\@/ ) {
+s/([a-z0-9_\-\.]+\@[a-z0-9\-\.]+\.[a-z]+)/<a href="mailto:$1">$1<\/A>/gi;
+        }
+
+        # detect URLs in manpages
+        if (m%tp://%) {
+            s,((ftp|http)://[^\s<>\)]+),<a href="$1">$1</a>,gi;
+        }
+
+        if (s%^(<b>.*?</b>)+\n?$% ($str = $1) =~ s,(<b>|</b>),,g; $str%ge) {
+            $i = $_;
+            $j = &encode_url($i);
+            $j =~ s/\+/_/g;
+            $_ = qq{<a name="$j" href="#end"><b>$i</b></a>\n};
+            push( @sect, $i );
+        }
+        print;
+    }
+    print qq{</pre>\n<a name="end" />\n};
+}
+
+print &html_header("hoge");
+&man;
+print qq{</body>\n</html>\n};
