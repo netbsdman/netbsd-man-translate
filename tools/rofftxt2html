@@ -179,7 +179,16 @@ s/([a-z0-9_\-\.]+\@[a-z0-9\-\.]+\.[a-z]+)/<a href="mailto:$1">$1<\/A>/gi;
         }
         print;
     }
-    print qq{</pre>\n<a name="end" />\n};
+    print qq{</pre>\n<a name="end" />\n<hr />\n};
+
+    for ( $i = 0 ; $i <= $#sect ; $i++ ) {
+        $j = &encode_url( $sect[$i] );
+        $j =~ s/\+/_/g;
+
+        print qq{<a href="#$j}
+          . qq{">$sect[$i]</a>}
+          . ( $i < $#sect ? " |\n" : "\n" );
+    }
 }
 
 print &html_header("hoge");
