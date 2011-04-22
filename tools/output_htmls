@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DIR_TOOLS=$PWD/tools/
+
+cd ja/ &&
+
+FILES_MAN=`find src/share/man/man9 -name "*.9"`
+FILES_JMAN=`find src/share/man/man9 -name "*.9.ja"`
+
+for i in $FILES_MAN $FILES_JMAN; do
+    mkdir -p ../html/`dirname $i`
+    $DIR_TOOLS/man_utf8 $i | $DIR_TOOLS/rofftxt2html > ../html/$i.html
+done
