@@ -1,13 +1,36 @@
 #!/bin/sh
 
 DIR_TOOLS=$PWD/tools/
+TOPDIR=$PWD
 
-cd ja/ &&
+cd $TOPDIR/ja/ &&
 
 FILES_MAN=`find src/share/man/man9 -name "*.9"`
 FILES_JMAN=`find src/share/man/man9 -name "*.9.ja"`
 
 for i in $FILES_MAN $FILES_JMAN; do
     mkdir -p ../html/`dirname $i`
-    $DIR_TOOLS/man_utf8 $i | $DIR_TOOLS/rofftxt2html > ../html/$i.html
+    $DIR_TOOLS/man_utf8 $i | $DIR_TOOLS/rofftxt2html $i > ../html/$i.html
 done
+
+cd $TOPDIR/html/ &&
+tree -H src/share/man/man9 src/share/man/man9 > tree.html
+
+cat > index.html <<EOF
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>NetBSD Manpages</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+<iframe src="tree.html" name="tree" height=96% width=28%>
+tree iframe window.
+</iframe>
+<iframe src="src/share/man/man9/uvm.9.ja.html" name="manpage" height=96% width=70%>
+manpage iframe window
+</iframe>
+</body>
+</html>
+EOF
