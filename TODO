@@ -1,4 +1,3 @@
 * translate: complete uvm.9 translation
-* script: git-cvsimport orig-share_man submodule
 * script: check original update
 * hosting: web interface to browse man
