@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd org_netbsd/ &&
+cvs -d $HOME/cvs_mirror/NetBSD-CVSROOT co src/share/man/man9
