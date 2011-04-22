@@ -1,4 +1,4 @@
-.\"     $NetBSD: cpu_number.9,v 1.3 2008/04/30 13:10:58 martin Exp $
+.\"     $NetBSD: preempt.9,v 1.5 2007/07/03 12:14:25 yamt Exp $
 .\"
 .\" Copyright (c) 2002 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -27,27 +27,27 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd April 13, 2010
-.Dt CPU_NUMBER 9
+.Dd July 3, 2007
+.Dt PREEMPT 9
 .Os
 .Sh NAME
-.Nm cpu_number
-.Nd unique
-.Tn CPU
-identification number
+.Nm preempt ,
+.Nm yield
+.Nd 一般的な preempt と yield 関数
 .Sh SYNOPSIS
-.In sys/types.h
-.In machine/cpu.h
-.Ft cpuid_t
-.Fn cpu_number "void"
+.In sys/sched.h
+.Ft void
+.Fn preempt "void"
+.In sys/proc.h
+.Ft void
+.Fn yield "void"
 .Sh DESCRIPTION
-The
-.Fn cpu_number
-function returns an unique
-.Tn CPU
-identification number for the
-.Tn CPU
-that this thread is running on.
-It may also be implemented as a macro.
-.Sh SEE ALSO
-.Xr curcpu 9
+.Fn preempt
+関数は現在の LWP をランキューに戻し、不本意にもコンテキストスイッチを行なう。
+.Fn yield
+関数は
+.Fn preempt
+と良く似ているが、自発的なコンテキストスイッチを行なう。
+.Pp
+これらの関数はロック中のカーネルロックを手放し、再スケジューリングされる前に
+自動的に左記のロックを取得する。

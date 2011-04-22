@@ -33,7 +33,7 @@
 .Sh NAME
 .Nm preempt ,
 .Nm yield
-.Nd 一般的な preempt と yield 関数
+.Nd general preempt and yield functions
 .Sh SYNOPSIS
 .In sys/sched.h
 .Ft void
@@ -42,12 +42,15 @@
 .Ft void
 .Fn yield "void"
 .Sh DESCRIPTION
+The
 .Fn preempt
-関数は現在の LWP をランキューに戻し、不本意にもコンテキストスイッチを行なう。
+function puts the current LWP back on the system run queue
+and performs an involuntary context switch.
+The
 .Fn yield
-関数は
-.Fn preempt
-と良く似ているが、自発的なコンテキストスイッチを行なう。
+function is mostly same as
+.Fn preempt ,
+except that it performs a voluntary context switch.
 .Pp
-これらの関数はロック中のカーネルロックを手放し、再スケジューリングされる前に
-自動的に左記のロックを取得する。
+These functions drop the kernel lock before switching
+and re-acquire it before returning.

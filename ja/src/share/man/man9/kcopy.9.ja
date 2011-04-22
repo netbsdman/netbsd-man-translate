@@ -1,4 +1,4 @@
-.\"     $NetBSD: suspendsched.9,v 1.4 2008/04/30 13:10:58 martin Exp $
+.\"     $NetBSD: kcopy.9,v 1.5 2006/04/04 20:48:21 wiz Exp $
 .\"
 .\" Copyright (c) 2002 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -27,24 +27,35 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd September 21, 2002
-.Dt SUSPENDSCHED 9
+.Dd April 4, 2006
+.Dt KCOPY 9
 .Os
 .Sh NAME
-.Nm suspendsched
-.Nd suspend the scheduler
+.Nm kcopy
+.Nd ページフォルトによるアボート中のデータコピー
 .Sh SYNOPSIS
-.In sys/proc.h
-.In sys/sched.h
-.Ft void
-.Fn suspendsched "void"
+.In sys/systm.h
+.Ft int
+.Fn kcopy "const void *src" "void *dst" "size_t len"
 .Sh DESCRIPTION
-The
-.Fn suspendsched
-function suspends the operation of the scheduler by stopping all
-non-system processes which are on the run queue or the sleep queue.
+致命的ページフォルトが発生してアボート中においても、
+.Fn kcopy
+は
+.Fa src
+から
+.Fa dst
+へ
+.Fa len
+バイト分データコピーする。
 .Pp
-The
-.Fn suspendsched
-function must not be called with the scheduler lock held.
-.\".Sh SEE ALSO
+.Xr uiomove 9
+によって引き起こされた(古い)ページフォルトハンドラを
+.Fn kcopy
+は保存/復元をしなければならない。なぜなら致命的でない通常のページフォルトの
+処理中のであるかもしれないから。
+.Fn kcopy
+は成功すると0を返し、失敗するとエラー番号を返す。
+.Sh SEE ALSO
+.Xr errno 2 ,
+.Xr memcpy 9 ,
+.Xr uiomove 9

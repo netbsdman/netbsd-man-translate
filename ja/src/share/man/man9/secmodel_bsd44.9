@@ -30,23 +30,20 @@
 .Os
 .Sh NAME
 .Nm secmodel_bsd44
-.Nd 伝統的な
+.Nd traditional
 .Nx
-セキュリティモデル (
-.Bx 4.4
-ベース)
+security model (based on
+.Bx 4.4 )
 .Sh DESCRIPTION
 .Nm
-は
-.Nx
-デフォルトのセキュリティモデル。
-これは
+is the default security model in
+.Nx .
+It is the traditional security model based on
 .Bx 4.4
-伝統的なセキュリティモデルで、
+and is composed of two separate security models,
 .Xr secmodel_suser 9
-と
+and
 .Xr secmodel_securelevel 9 .
-2つのセキュリティモデルから構成されている。
 .Sh SEE ALSO
 .Xr kauth 9 ,
 .Xr secmodel 9 ,

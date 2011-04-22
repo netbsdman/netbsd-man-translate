@@ -42,7 +42,7 @@
 .Nm callout_expired ,
 .Nm callout_invoking ,
 .Nm callout_ack
-.Nd 指定時間後に関数を実行する
+.Nd execute a function after a specified length of time
 .Sh SYNOPSIS
 .In sys/callout.h
 .Ft void
@@ -71,26 +71,27 @@
 .Ft bool
 .Fn "callout_ack" "callout_t *c"
 .Sh DESCRIPTION
+The
 .Nm callout
-とは与えられた時間経過によって関数を実行するしくみ。
-そのタイマーは
+facility provides a mechanism to execute a function at a given time.
+The timer is based on the hardclock timer which ticks
 .Dv hz
-毎秒を度数としたハードクロックタイマーを
-基準にしている。実行される関数はソフトクロック割り込みから呼び出される。
+times per second.
+The function is called at softclock interrupt level.
 .Pp
+Clients of the
 .Nm callout
-の使用者は
-facility are responsible for providing 確保された
-callout structures, や
-.Dq ハンドル
+facility are responsible for providing pre-allocated
+callout structures, or
+.Dq handles .
+The
 .Nm callout
-は歴史的な
+facility replaces the historic
 .Ux
-関数である
+functions
 .Fn timeout
-や
-.Fn untimeout
-を置き換える。
+and
+.Fn untimeout .
 .Sh FUNCTIONS
 The
 .Fn callout_init

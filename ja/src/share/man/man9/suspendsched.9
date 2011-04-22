@@ -32,18 +32,19 @@
 .Os
 .Sh NAME
 .Nm suspendsched
-.Nd スケジューラをサスペンド
+.Nd suspend the scheduler
 .Sh SYNOPSIS
 .In sys/proc.h
 .In sys/sched.h
 .Ft void
 .Fn suspendsched "void"
 .Sh DESCRIPTION
+The
 .Fn suspendsched
-関数はランキューもしくはスリープキューに繋がれたシステム向けでないプロセス
-全ての動作をサスペンドさせる。
+function suspends the operation of the scheduler by stopping all
+non-system processes which are on the run queue or the sleep queue.
 .Pp
-スケジューラをロックしたまま
+The
 .Fn suspendsched
-関数を呼んではならない。
+function must not be called with the scheduler lock held.
 .\".Sh SEE ALSO
