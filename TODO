@@ -1,3 +1,3 @@
 * translate: complete uvm.9 translation
 * script: check original update
-* hosting: web interface to browse man
+* html: add htmlize date message
