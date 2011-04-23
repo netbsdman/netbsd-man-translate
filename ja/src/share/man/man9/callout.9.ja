@@ -92,69 +92,68 @@ callout structures, や
 .Fn untimeout
 を置き換える。
 .Sh FUNCTIONS
-The
 .Fn callout_init
-function initializes the callout handle
+関数はcalloutハンドル
 .Fa c
-for use.
-No operations can be performed on the callout before it is initialized.
-If the
+を初期化して使用可能にする。
+初期化前の状態ではcalloutに対する操作を行なうことはできない。
 .Fa flags
-argument is
-.Dv CALLOUT_MPSAFE ,
-the handler will be called without getting the global kernel lock.
-In this case it should only use functions that are multiprocessor
-safe.
+引数を
+.Dv CALLOUT_MPSAFE
+に設定すると、
+そのハンドラはグローバルkernelロックをかけずに呼び出される。
+この場合、そのハンドラはマルチプロセッサセーフな関数のみを呼び出すように
+気をつけなければならない。
 .Pp
 .Fn callout_destroy
-destroys the callout, preventing further use.
-It is provided as a diagnostic facility intended to catch bugs.
-To ensure future compatibility,
+はcalloutを解放して以降の使用を禁止する。
+これはバグ検出を目的とした診断機構である。
+将来への互換性を保証するため、
+(例えば、デバイスが取り外された場合など)
+calloutが不要になった場合
 .Fn callout_destroy
-should always be called when the callout is no longer required (for instance,
-when a device is being detached).
+が必ず呼び出されるべきである。
 .Pp
-The
 .Fn callout_reset
-function resets and starts the timer associated with the callout handle
-.Fa c .
-When the timer expires after
-.Fa ticks Ns No /hz
-seconds, the function specified by
-.Fa func
-will be called with the argument
-.Fa arg .
-If the timer associated with the callout handle is already running,
-the callout will simply be rescheduled to execute at the newly specified
-time.
-Once the timer is started, the callout handle is marked as
-.Em PENDING .
-Once the timer expires,
-the handle is marked as
-.Em EXPIRED
-and
-.Em INVOKING ,
-and the
-.Em PENDING
-status is cleared.
-.Pp
-The
-.Fn callout_setfunc
-function sets the function and argument of the callout handle
+関数はcalloutハンドル
 .Fa c
-to
+に関連したタイマーをリセットして再度開始させる。
+.Fa ticks Ns No /hz
+秒経過するとタイマーは発火し、
 .Fa func
-and
+で指定した関数が
 .Fa arg
-respectively.
-The callout handle must already be initialized.
-If a callout will always be used with the same function and argument,
-then
+で指定した引数で呼び出される。
+calloutハンドルに関連したタイマーが既に実行中の場合、
+単にcalloutは新しく指定した時間で再度スケジューリングされる。
+タイマーが開始されたら、calloutハンドルは
+.Em PENDING
+としてマークされる。
+タイマーが発火すると、
+そのハンドルは
+.Em EXPIRED
+かつ
+.Em INVOKING
+としてマークされ、
+.Em PENDING
+マークが削除される。
+.Pp
 .Fn callout_setfunc
-used in conjunction with
+関数は、calloutハンドル
+.Fa c
+に
+.Fa func
+関数と
+.Fa arg
+引数を設定する。
+当該calloutハンドルは初期化済みでなければならない。
+calloutがいつも同じ関数と引数を使用する場合、
+.Fn callout_setfunc
+を
 .Fn callout_schedule
-is slightly more efficient than using
-.Fn callout_reset .
+と合わせて使った方が
+.Fn callout_reset
+を単体で使うよりも便利である。
 .Pp
 The
 .Fn callout_stop
