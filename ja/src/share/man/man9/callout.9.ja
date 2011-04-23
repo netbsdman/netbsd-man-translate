@@ -155,59 +155,63 @@ calloutがいつも同じ関数と引数を使用する場合、
 .Fn callout_reset
 を単体で使うよりも便利である。
 .Pp
-The
 .Fn callout_stop
-function requests that the timer associated with the callout handle
+関数はcalloutハンドル
 .Fa c
-be stopped.
-The
+に関連したタイマーを停止させる。
+calloutハンドルに付いている
 .Em PENDING
-and
+と
 .Em EXPIRED
-status for the callout handle is cleared.
-It is safe to call
+マークは削除される。
+タイマー発火したcalloutハンドルに対して
 .Fn callout_stop
-on a callout handle that is not pending, so long as it is initialized.
+を呼び出しても問題ない。ただし当該ハンドルは初期化済みでなければならない。
+もしcalloutが
+.Em EXPIRED
+であったら、
 .Fn callout_stop
-will return a non-zero value if the callout was
-.Em EXPIRED .
-Note that
+関数は非ゼロを返す。
+以下に注意。
+calloutが異なるCPUや同一のCPUであっても異なる割り込み優先度で実行中であっても
 .Fn callout_stop
-can return while the callout is running on a different CPU or at a
-different interrupt priority level on the current CPU.
-It can only be said to prevent the callout from firing in the future,
-unless explicitly re-scheduled.
-To stop a callout and wait for completion, use
-.Fn callout_halt .
+関数はreturnする。
+本関数の完了は、明示的に再スケジュールしない限り、
+それ以降calloutがタイマー発火によって実行されないということしか意味していない。
+calloutを停止させてかつそのcalloutの実行完了を待ち合わせる場合には
+.Fn callout_halt
+を使うべきである。
 .Pp
 .Fn callout_halt
-acts much like
-.Fn callout_stop ,
-but waits for the callout to complete if it is currently in-flight.
+関数の動作は
+.Fn callout_stop
+関数と良く似ているが、
+実行中calloutの完了を待ち合わせるところが異なる。
 .Fn callout_halt
-may not be called from a hard interrupt handler as it will sleep if the
-callout is currently executing.
-If the callout can take locks (such as mutexes or RW locks), the caller of
+関数はハード割り込みハンドラから呼び出されないべきである。
+なぜなら対象となるcalloutが実行中の場合、本関数はsleepしてしまうから。
+もしcalloutが(mutexやRWロックのような)ロック取得を行なう場合、
 .Fn callout_halt
-must not hold any of those locks, otherwise the two could deadlock.
-To facilitate this,
+関数の呼び出し元はそれらのロック保持を行なってはならない。
+さもないとデッドロックが発生することになる。
+上記をうまく扱うために、
 .Fn callout_halt
-can optionally release a single mutex specified by the
+関数は
 .Fa interlock
-parameter.
-If
+引数で解放するmutexを一つだけ指定することができる。
+もし
 .Fa interlock
-is not
+を非
 .Dv NULL
-and the calling thread must wait for the callout to complete,
+に設定してかつ呼び出しスレッドがcallout実行完了を待ち合わせる場合、
 .Fa interlock
-will be released before waiting and re-acquired before returning.
-If no wait is required,
+は待ち合わせ前に解放され、関数return前に再取得される。
+もし待ち合わせが不要な場合、
 .Fa interlock
-will not be released.
-However, to avoid race conditions the caller should always assume that
+は解放されない。
+とはいえ、競合状態を回避するため、呼び出し元は
 .Fa interlock
-has been released and reacquired, and act accordingly.
+が解放/再取得される可能性があることをいつも念頭におくべきである。
 .Pp
 The
 .Fn callout_pending
