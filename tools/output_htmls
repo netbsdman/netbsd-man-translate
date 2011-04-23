@@ -1,12 +1,8 @@
 #!/bin/sh
 
-export LANG=C
-export LANGUAGE=C
-export LC_ALL=C
-
 DIR_TOOLS=$PWD/tools/
 TOPDIR=$PWD
-DATE=`date`
+DATE=`LC_ALL=C LANGUAGE=C LANG=C date`
 
 rm -rf $TOPDIR/html/*
 
