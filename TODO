@@ -1,3 +1,2 @@
-* translate: complete uvm.9 translation
+* translate: complete uvm.9 and callout.9 translation
 * script: check original update
-* html: add htmlize date message

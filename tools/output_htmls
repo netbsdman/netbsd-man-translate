@@ -1,7 +1,12 @@
 #!/bin/sh
 
+export LANG=C
+export LANGUAGE=C
+export LC_ALL=C
+
 DIR_TOOLS=$PWD/tools/
 TOPDIR=$PWD
+DATE=`date`
 
 rm -rf $TOPDIR/html/*
 
@@ -20,15 +25,16 @@ tree -H src/share/man/man9 src/share/man/man9 | \
     sed -e 's/\(<a href=\".*\"\)/\1 target=\"manpage\"/' \
         -e 's/\(BODY {\)/\1 font-size: small;/' > tree.html
 
-cat > index.html <<EOF
+sed -e "s/__DATE__/\"$DATE\"/" > index.html <<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-<title>NetBSD Manpages</title>
+<title>NetBSD man translate</title>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 </head>
 <body>
+HTMLized at __DATE__.
 See
 <a href="https://gitorious.org/netbsd-man-translate">https://gitorious.org/netbsd-man-translate</a> for source code.
 <hr>
