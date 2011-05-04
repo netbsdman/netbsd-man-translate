@@ -79,10 +79,9 @@
 基準にしている。実行される関数はソフトクロック割り込みから呼び出される。
 .Pp
 .Nm callout
-の使用者は
-facility are responsible for providing 確保された
-callout structures, や
+の使用者は、callout の構造体や
 .Dq ハンドル
+をあらかじめ確保しておかなければならない。
 .Nm callout
 は歴史的な
 .Ux
@@ -93,29 +92,29 @@ callout structures, や
 を置き換える。
 .Sh FUNCTIONS
 .Fn callout_init
-関数はcalloutハンドル
+関数は callout ハンドル
 .Fa c
 を初期化して使用可能にする。
-初期化前の状態ではcalloutに対する操作を行なうことはできない。
+初期化前の状態では callout に対する操作を行なうことはできない。
 .Fa flags
 引数を
 .Dv CALLOUT_MPSAFE
 に設定すると、
-そのハンドラはグローバルkernelロックをかけずに呼び出される。
+そのハンドラはグローバル kernel ロックをかけずに呼び出される。
 この場合、そのハンドラはマルチプロセッサセーフな関数のみを呼び出すように
 気をつけなければならない。
 .Pp
 .Fn callout_destroy
-はcalloutを解放して以降の使用を禁止する。
+は callout を解放して以降の使用を禁止する。
 これはバグ検出を目的とした診断機構である。
 将来への互換性を保証するため、
 (例えば、デバイスが取り外された場合など)
-calloutが不要になった場合
+callout が不要になった場合
 .Fn callout_destroy
 が必ず呼び出されるべきである。
 .Pp
 .Fn callout_reset
-関数はcalloutハンドル
+関数は callout ハンドル
 .Fa c
 に関連したタイマーをリセットして再度開始させる。
 .Fa ticks Ns No /hz
@@ -124,9 +123,9 @@ calloutが不要になった場合
 で指定した関数が
 .Fa arg
 で指定した引数で呼び出される。
-calloutハンドルに関連したタイマーが既に実行中の場合、
-単にcalloutは新しく指定した時間で再度スケジューリングされる。
-タイマーが開始されたら、calloutハンドルは
+callout ハンドルに関連したタイマーが既に実行中の場合、
+単に callout は新しく指定した時間で再度スケジューリングされる。
+タイマーが開始されたら、callout ハンドルは
 .Em PENDING
 としてマークされる。
 タイマーが発火すると、
@@ -139,15 +138,15 @@ calloutハンドルに関連したタイマーが既に実行中の場合、
 マークが削除される。
 .Pp
 .Fn callout_setfunc
-関数は、calloutハンドル
+関数は、callout ハンドル
 .Fa c
 に
 .Fa func
 関数と
 .Fa arg
 引数を設定する。
-当該calloutハンドルは初期化済みでなければならない。
-calloutがいつも同じ関数と引数を使用する場合、
+当該 callout ハンドルは初期化済みでなければならない。
+callout がいつも同じ関数と引数を使用する場合、
 .Fn callout_setfunc
 を
 .Fn callout_schedule
@@ -156,29 +155,31 @@ calloutがいつも同じ関数と引数を使用する場合、
 を単体で使うよりも便利である。
 .Pp
 .Fn callout_stop
-関数はcalloutハンドル
+関数は callout ハンドル
 .Fa c
 に関連したタイマーを停止させる。
-calloutハンドルに付いている
+callout ハンドルに付いている
 .Em PENDING
 と
 .Em EXPIRED
 マークは削除される。
-タイマー発火したcalloutハンドルに対して
+タイマー発火した callout ハンドルに対して
 .Fn callout_stop
 を呼び出しても問題ない。ただし当該ハンドルは初期化済みでなければならない。
-もしcalloutが
+もし callout が
 .Em EXPIRED
 であったら、
 .Fn callout_stop
 関数は非ゼロを返す。
 以下に注意。
-calloutが異なるCPUや同一のCPUであっても異なる割り込み優先度で実行中であっても
+callout が異なる CPU や同一の CPU であっても異なる割り込み優先度で実行中
+であっても
 .Fn callout_stop
-関数はreturnする。
+関数は return する。
 本関数の完了は、明示的に再スケジュールしない限り、
-それ以降calloutがタイマー発火によって実行されないということしか意味していない。
-calloutを停止させてかつそのcalloutの実行完了を待ち合わせる場合には
+それ以降 callout がタイマー発火によって実行されないということしか
+意味していない。
+callout を停止させてかつそのcalloutの実行完了を待ち合わせる場合には
 .Fn callout_halt
 を使うべきである。
 .Pp
@@ -186,11 +187,11 @@ calloutを停止させてかつそのcalloutの実行完了を待ち合わせる
 関数の動作は
 .Fn callout_stop
 関数と良く似ているが、
-実行中calloutの完了を待ち合わせるところが異なる。
+実行中 callout の完了を待ち合わせるところが異なる。
 .Fn callout_halt
 関数はハード割り込みハンドラから呼び出されないべきである。
 なぜなら対象となるcalloutが実行中の場合、本関数はsleepしてしまうから。
-もしcalloutが(mutexやRWロックのような)ロック取得を行なう場合、
+もし callout が (mutex や RW ロックのような) ロック取得を行なう場合、
 .Fn callout_halt
 関数の呼び出し元はそれらのロック保持を行なってはならない。
 さもないとデッドロックが発生することになる。
@@ -198,14 +199,14 @@ calloutを停止させてかつそのcalloutの実行完了を待ち合わせる
 .Fn callout_halt
 関数は
 .Fa interlock
-引数で解放するmutexを一つだけ指定することができる。
+引数で解放する mutex を一つだけ指定することができる。
 もし
 .Fa interlock
 を非
 .Dv NULL
-に設定してかつ呼び出しスレッドがcallout実行完了を待ち合わせる場合、
+に設定してかつ呼び出しスレッドが callout 実行完了を待ち合わせる場合、
 .Fa interlock
-は待ち合わせ前に解放され、関数return前に再取得される。
+は待ち合わせ前に解放され、関数 return 前に再取得される。
 もし待ち合わせが不要な場合、
 .Fa interlock
 は解放されない。
@@ -213,105 +214,104 @@ calloutを停止させてかつそのcalloutの実行完了を待ち合わせる
 .Fa interlock
 が解放/再取得される可能性があることをいつも念頭におくべきである。
 .Pp
-The
 .Fn callout_pending
-function tests the
+関数は callout ハンドル
+.Fa c
+の状態が
 .Em PENDING
-status of the callout handle
-.Fa c .
-A
+かどうか調べる。
 .Em PENDING
-callout is one that has been started and whose function has not yet
-been called.
-Note that it is possible for a callout's timer to have expired without
-its function being called if interrupt level has not dropped low enough
-to let softclock interrupts through.
-Note that it is only safe to test
+状態にある callout とは、タイマーは開始しているが、
+対応する関数はまだ呼び出されていない状態である。
+以下に注意。
+もしソフトクロック割り込みが入るように割り込みレベルを落していない場合、
+callout に対応する関数が呼び出されることなしに
+callout のタイマーが発火してしまうことがありうる。
+また、ソフトクロック割り込みレベルかそれよりも
+高い割り込みレベルにおいてのみ
 .Em PENDING
-status when at softclock interrupt level or higher.
+状態確認が安全に使えることにも注意すること。
 .Pp
-The
 .Fn callout_expired
-function tests to see if the callout's timer has expired and its
-function called.
+関数は callout のタイマーが発火済みでかつ対応する関数が呼び出されたかどうか
+を調べる。
 .Pp
-The
 .Fn callout_active
-function returns true if a timer has been started but not explicitly stopped,
-even if it has already fired.
+関数はタイマーが開始していて、
+たとえタイマーが既に発火済みであったとしても明示的にタイマーを
+停止させていなければ、true を返す。
 .Fn callout_active foo
-is logically the same as
+と
 .Fn callout_pending foo
 ||
 .Fn callout_expired foo ;
-it is implemented as a separate function for compatibility with
+は論理的に等価である。
+この分離された関数の実装は
 .Fx
-and for the special case of
-.Fn TCP_TIMER_ISARMED .
-Its use is not recommended.
+と互換性があり、
+.Fn TCP_TIMER_ISARMED
+はその特殊ケースである。
+しかし、上記関数の使用は推奨されない。
 .Pp
-The
 .Fn callout_invoking
-function tests the
+関数は callout ハンドル
+.Fa c
+の状態が
 .Em INVOKING
-status of the callout handle
-.Fa c .
-This flag is set just before a callout's function is being called.
-Since the priority level is lowered prior to invocation of the
-callout function, other pending higher-priority code may run before
-the callout function is allowed to run.
-This may create a race condition if this higher-priority code
-deallocates storage containing one or more callout structures whose
-callout functions are about to be run.
-In such cases, one technique to prevent references to deallocated
-storage would be to test whether any callout functions are in the
+かどうか調べる。
+このフラグは callout 関数が呼び出される直前に設定される。
+callout 関数の呼び出し前に優先度低に設定されるので、
+その callout 関数が実行許可される前に
+その他未実行の優先度高の処理が実行されるかもしれない。
+もし優先度高の処理が、callout 関数がまさに実行しようとしている
+callout 構造体を含むメモリを解放した場合、
+競合状態を引き起こす可能性がある。
+このような場合、解放済みメモリへの参照を防止する1つのテクニックとして、
+.Fn callout_invoking
+を使って callout 関数が
 .Em INVOKING
-state using
-.Fn callout_invoking ,
-and if so, to mark the data structure and defer storage
-deallocation until the callout function is allowed to run.
-For this handshake protocol to work, the callout function will
-have to use the
+状態にあるかどうか調べ、
+そうであればその callout 関数が実行されるまでメモリの解放を延期させるように、
+そのデータ構造体にフラグを付ける方法がある。
+このハンドシェイクが動作するようにするため、
+その callout 関数は
 .Fn callout_ack
-function to clear this flag.
+関数で先のフラグを削除すべきである。
 .Pp
-The
 .Fn callout_ack
-function clears the
+関数は callout ハンドル
+.Fa c
+の
 .Em INVOKING
-state in the callout handle
-.Fa c .
-This is used in situations where it is necessary to protect against
-the race condition described under
-.Fn callout_invoking .
+フラグを削除する。
+これは
+.Fn callout_invoking
+の章で説明したような競合状態を防止する必要がある場面で使われる。
 .Sh CONCURRENCY
-The callout facility performs locking internally in order to guarantee the
-atomicity of individual operations performed on callouts.
-It does not provide life cycle management of user-provided callout data
-structures, nor does it ensure that groups of operations (multiple function
-calls) are performed atomically.
-These aspects of callout management are the responsibility of the user of
-the callout facility.
+callout が実行する個々の操作がアトミックであることを保証するために、
+callout 機構は内部にロックを持つ。
+本機構は、作成された callout データのライフサイクルを管理しない。
+また、複数の操作 (複数の関数呼び出しなど) がアトミックに実行されること
+を保証することもない。
+これらの callout 管理については、callout 機構の使用者の責務である。
 .Pp
-Scheduled callouts may be active concurrently in a context different to the
-user of the callout facility: on another CPU, or at a different interrupt
-priority level or thread on the current CPU.
-The callout facility provides only one guarantee in this regard: any given
-callout will never have multiple concurrent invocations.
+スケジューリングされた callout 群は
+callout 機構の使用者とは異なるコンテキストで並列実行されるかもしれない。
+例えば、異なる CPU、異なる割り込み優先度、同じ CPU の異なるスレッドなどである。
+callout 機構は、どのような callout 同士も並列に実行されないことのみを保証する。
 .Sh SEE ALSO
 .Xr condvar 9 ,
 .Xr hz 9 ,
 .Xr softint 9 ,
 .Xr workqueue 9
 .Sh HISTORY
-The
 .Nm callout
-facility was implemented by Artur Grabowski and Thomas Nordin, based
-on the work of G. Varghese and A. Lauck, described in the paper
+機構は、G. Varghese と A. Lauckによる論文
 Hashed and Hierarchical Timing Wheels: Data Structures for the
 Efficient Implementation of a Timer Facility
 in the Proceedings of the 11th ACM Annual Symposium on Operating System
-Principles, Austin, Texas, November 1987.
-It was adapted to the
+Principles, Austin, Texas, November 1987
+を参考に、Artur Grabowski と Thomas Nordin によって実装された。
+また Jason R. Thorpe によって
 .Nx
-kernel by Jason R. Thorpe.
+kernel に移植された。
