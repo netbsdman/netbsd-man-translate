@@ -17,39 +17,5 @@ for i in $FILES_MAN $FILES_JMAN; do
 done
 
 cd $TOPDIR/html/ &&
-tree -H src/share/man/man9 src/share/man/man9 | \
-    sed -e 's/\(<a href=\".*\"\)/\1 target=\"manpage\"/' \
-        -e 's/\(BODY {\)/\1 font-size: small;/' > tree.html
-
-sed -e "s/__DATE__/\"$DATE\"/" > index.html <<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
-<head>
-<title>NetBSD man translate</title>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-158383-4']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-</head>
-<body>
-HTMLized at __DATE__.
-See
-<a href="https://gitorious.org/netbsd-man-translate">https://gitorious.org/netbsd-man-translate</a> for source code.
-<hr>
-<iframe src="tree.html" name="tree" height=90% width=30%>
-tree iframe window.
-</iframe>
-<iframe src="src/share/man/man9/uvm.9.ja.html" name="manpage" height=90% width=68%>
-manpage iframe window
-</iframe>
-</body>
-</html>
-EOF
+haml $DIR_TOOLS/output_htmls_files/tree.haml tree.html
+haml $DIR_TOOLS/output_htmls_files/index.haml index.html
