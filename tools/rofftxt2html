@@ -47,7 +47,8 @@ sub html_header2 {
 $head
 </head> 
 <body>
-<h1>Path: $title</h1>
+<h1>PATH: $title</h1>
+<hr />
 };
 }
 

@@ -19,3 +19,5 @@ done
 cd $TOPDIR/html/ &&
 haml $DIR_TOOLS/output_htmls_files/tree.haml tree.html
 haml $DIR_TOOLS/output_htmls_files/index.haml index.html
+mkdir -p js
+cp $DIR_TOOLS/output_htmls_files/*.js js/

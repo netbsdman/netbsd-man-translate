@@ -3,13 +3,38 @@
 %head
   %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
   :css
-    h1 { text-align: center; }
     h2 { font-weight: normal; }
-    body { font-size: 80% }
+    body { font-size: 85% }
     ul { margin: 0; padding: 0;}
     li { margin: 0; padding: 0;}
-  %title Manpage Tree
+    div.comment { font-size: 80% }
+  %title NetBSD Manpages
+  %script{:type => "text/javascript", :src => "js/jquery-1.6.min.js"}
+  %script{:type => "text/javascript", :src => "js/jquery.livesearch.js"}
   :javascript
+    (function($) {
+      $(document).ready(function() {
+        $('input[name="q"]').search('li.mantreeitem', function(on) {
+          on.all(function(results) {
+            var size = results ? results.size() : 0
+            $('#count').text(size + ' results');
+          });
+          on.reset(function() {
+            $('#none').hide();
+            $('li.mantreeitem').show();
+          });
+          on.empty(function() {
+            $('#none').show();
+            $('li.mantreeitem').hide();
+          });
+          on.results(function(results) {
+            $('#none').hide();
+            $('li.mantreeitem').hide();
+            results.show();
+          });
+        });
+      });
+    })(jQuery);
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-158383-4']);
     _gaq.push(['_trackPageview']);
@@ -19,10 +44,14 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 %body
-%h1 Manpage Tree
+%h1 NetBSD Manpages
 .filterbox
-  %form
-    %input{:type => "text"} : filter
+  Live Search (
+  %span{:id => "count"}
+  ) :
+  %br
+  %input{:type => "text", :name => "q"}
+%hr
 .dirtree
   %h2 src/share/man/man9
   %ul{:class => "mantree"}
@@ -31,7 +60,8 @@
         %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","").sub(/\.html$/,"")}
 %hr
 .comment
-  = require 'date'; "HTMLized at #{DateTime.now.ctime}."
+  = require 'date'; "HTMLized at \"#{DateTime.now.ctime}\"."
+  %br
   See
-  %a{:href => "https://gitorious.org/netbsd-man-translate"} https://gitorious.org/netbsd-man-translate
+  %a{:href => "https://gitorious.org/netbsd-man-translate", :target => "_blank"} https://gitorious.org/netbsd-man-translate
   for source code.
