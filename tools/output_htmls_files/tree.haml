@@ -1,19 +1,35 @@
 !!! XML
 %html
 %head
-%meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
-%title Manpage Tree
+  %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
+  :css
+    h1 { text-align: center; }
+    h2 { font-weight: normal; }
+    body { font-size: 80% }
+    ul { margin: 0; padding: 0;}
+    li { margin: 0; padding: 0;}
+  %title Manpage Tree
+  :javascript
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-158383-4']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
 %body
-%h2 Manpage Tree
+%h1 Manpage Tree
 .filterbox
   %form
     %input{:type => "text"} : filter
 .dirtree
-  src/share/man/man9
+  %h2 src/share/man/man9
   %ul{:class => "mantree"}
     - `find src/share/man/man9 -name "*.html"`.sort.each do |a| a.chop!
       %li{:class => "mantreeitem"}
-        %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","")}
+        %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","").sub(/\.html$/,"")}
+%hr
 .comment
   = require 'date'; "HTMLized at #{DateTime.now.ctime}."
   See

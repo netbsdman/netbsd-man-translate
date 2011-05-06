@@ -47,6 +47,7 @@ sub html_header2 {
 $head
 </head> 
 <body>
+<h1>Path: $title</h1>
 };
 }
 
@@ -57,6 +58,7 @@ sub html_header {
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <style type="text/css">
 <!--
+h1 { font-size: 1em; text-align: left; font-weight: normal}
 b { color: #996600; }
 i { color: #008000; }
 -->
