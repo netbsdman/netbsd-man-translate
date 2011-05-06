@@ -39,6 +39,8 @@
 use utf8;
 use encoding ("utf-8");
 
+# $BASE = "__WILL_REPLACE__";
+
 sub html_header2 {
     my ( $title, $head ) = @_;
 
@@ -50,7 +52,7 @@ sub html_header2 {
 $head
 </head> 
 <body>
-<h1>PATH: $title</h1>
+<h1>manpage path: $title</h1>
 <hr />
 };
 }
@@ -72,7 +74,7 @@ i { color: #008000; }
     return &html_header2( $title, $html_meta )
 }
 
-# xxx TODO xxx
+# xxx TODO: now only for man9 (en) xxx
 sub mlnk {
     local ($matched) = @_;
     local ( $link, $section );
@@ -82,8 +84,8 @@ sub mlnk {
     $link    = &encode_url($link);
     $section = &encode_url($section);
     local ($manpath) = &encode_url($manpath);
-    return qq{<a href="$BASE?query=$link}
-      . qq{&amp;sektion=$section&amp;apropos=0&amp;manpath=$manpath">$matched</a>};
+    return qq{<a href="$BASE$link}
+      . qq{.$section.html">$matched</a>};
 }
 
 # encode unknown data for use in a URL <a href="...">
@@ -173,7 +175,7 @@ s/([a-z0-9_\-\.]+\@[a-z0-9\-\.]+\.[a-z]+)/<a href="mailto:$1">$1<\/A>/gi;
 
         # detect URLs in manpages
         if (m%tp://%) {
-            s,((ftp|http)://[^\s<>\)]+),<a href="$1">$1</a>,gi;
+            s,((ftp|http)://[^\s<>\)]+)([\,]),<a href="$1">$1</a>$3,gi;
         }
 
         if (s%^(<b>.*?</b>)+\n?$% ($str = $1) =~ s,(<b>|</b>),,g; $str%ge) {
