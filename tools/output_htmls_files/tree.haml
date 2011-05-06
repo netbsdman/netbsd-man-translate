@@ -55,9 +55,12 @@
 .dirtree
   %h2 src/share/man/man9
   %ul{:class => "mantree"}
-    - `find src/share/man/man9 -name "*.html"`.sort.each do |a| a.chop!
+    - `find src/share/man/man9 -name "*.html"`.reject{|a| a =~ /\.ja\.html/}.sort.each do |a| a.chop!
       %li{:class => "mantreeitem"}
         %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","").sub(/\.html$/,"")}
+        - j = a.sub(/html$/, "ja.html")
+        - if File.exist? j then
+          %a{:href => "#{j}", :target => "manpage"} [ja]
 %hr
 .comment
   = require 'date'; "HTMLized at \"#{DateTime.now.ctime}\"."
