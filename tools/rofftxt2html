@@ -36,6 +36,9 @@
 # $Id: man.cgi,v 1.172 2007/11/28 18:51:29 hrs Exp $
 # $FreeBSD: www/en/cgi/man.cgi,v 1.261 2011/03/29 21:54:40 wosch Exp $
 
+use utf8;
+use encoding ("utf-8");
+
 sub html_header2 {
     my ( $title, $head ) = @_;
 
