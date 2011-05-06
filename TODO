@@ -1,6 +1,3 @@
-* translate: complete uvm.9 and callout.9 translation
+* translate: complete uvm.9 translation
 * script: check original update
-* html: [BUG] firefox has small iframe
-* html: use jquery to search title
-* html: [BUG] link to manpage from manpage
-
+* html: [BUG] link to manpage from manpage (between different sections)
