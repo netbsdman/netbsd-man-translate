@@ -1,4 +1,5 @@
 !!! XML
+!!!
 %html
 %head
   %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
@@ -60,7 +61,9 @@
         %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","").sub(/\.html$/,"")}
         - j = a.sub(/html$/, "ja.html")
         - if File.exist? j then
-          %a{:href => "#{j}", :target => "manpage"} [ja]
+          [
+          %a{:href => "#{j}", :target => "manpage"}> ja
+          ]
 %hr
 .comment
   = require 'date'; "HTMLized at \"#{DateTime.now.ctime}\"."
