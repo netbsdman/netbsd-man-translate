@@ -40,6 +40,7 @@ use utf8;
 use encoding ("utf-8");
 
 # $BASE = "__WILL_REPLACE__";
+$GITORIOUS = "http://gitorious.org/netbsd-man-translate/netbsd-man-translate/blobs/master/ja/";
 
 sub html_header2 {
     my ( $title, $head ) = @_;
@@ -52,7 +53,7 @@ sub html_header2 {
 $head
 </head> 
 <body>
-<h1>manpage path: $title</h1>
+<h1>manpage path: <a href="$GITORIOUS/$title" target="_blank">$title</a></h1>
 <hr />
 };
 }
