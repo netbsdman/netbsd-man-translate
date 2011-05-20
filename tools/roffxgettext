@@ -7,11 +7,46 @@ def usage
   exit 1
 end
 
+class UngetsFile < File
+  def ungets(s)
+    @ungetsed = [] unless @ungetsed
+    @ungetsed.push s
+  end
+  def gets
+    if @ungetsed && @ungetsed.size > 0
+      @ungetsed.shift
+    else
+      super
+    end
+  end
+end
+
+def oneline(f, t)
+  puts "#: #{Filename}:#{f.lineno.to_s}"
+  puts "#, c-format"
+  puts "msgid \"#{t.gsub('"','\"')}\""
+  puts "msgstr \"\""
+  puts ""
+end
+
+def morelines(f)
+  puts "#: #{Filename}:#{(1 + f.lineno).to_s}\n#, c-format\nmsgid \"\""
+  f.each{|a|
+    if a =~ /^\.Sh/ || a =~ /^\.Pp/
+      f.ungets a
+      break
+    end
+    puts "\"#{a.gsub("\n",'\n').gsub('"','\"')}\""
+  }
+  puts "msgstr \"\""
+  puts ""
+end
+
 usage if ARGV.size != 1
 Filename = ARGV[0]
 
 # header
-f = File.open(Filename)
+f = UngetsFile.open(Filename)
 Version = f.gets.scan(/\$.+\$/).first.gsub("$","")
 NowDate = DateTime.now
 NowDateStr = sprintf("%04d-%02d-%02d %02d:%02d%s",
@@ -39,37 +74,12 @@ msgstr ""
 
 EOF
 
-def oneline(f, t)
-  puts "#: #{Filename}:#{f.lineno.to_s}"
-  puts "#, c-format"
-  puts "msgid \"#{t.gsub('"','\"')}\""
-  puts "msgstr \"\""
-  puts ""
-end
-
-def morelines(f)
-  puts "#: #{Filename}:#{(1 + f.lineno).to_s}\n#, c-format\nmsgid \"\""
-  nextline = nil
-  f.each{|a|
-    if a =~ /^\.Sh /
-      nextline = a
-      break
-    end
-    puts "\"#{a.gsub("\n",'\n').gsub('"','\"')}\""
-  }
-  puts "msgstr \"\""
-  puts ""
-  nextline
-end
-
-s_next = nil
-while s = s_next || f.gets
-  s_next = nil
+while s = f.gets
   if s =~ /^\.Nd (.*)/
     oneline(f, $1)
   elsif s =~ /^\.Sh NAME/ || s =~ /^\.Sh SYNOPSIS/ || s =~ /^\.Sh SEE ALSO/
     next
-  elsif s =~ /^\.Sh /
-    s_next = morelines(f)
+  elsif s =~ /^\.Sh/ || s =~ /^\.Pp/
+    morelines(f)
   end
 end
