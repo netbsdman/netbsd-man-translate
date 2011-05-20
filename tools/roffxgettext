@@ -21,25 +21,39 @@ class UngetsFile < File
   end
 end
 
-def oneline(f, t)
-  puts "#: #{Filename}:#{f.lineno.to_s}"
-  puts "#, c-format"
-  puts "msgid \"#{t.gsub('"','\"')}\""
-  puts "msgstr \"\""
-  puts ""
-end
+class GettextMsgids
+  def initialize
+    @msgids = []
+  end
+  def push_oneline(f, t)
+    l = [f.lineno.to_s]
+    m = 'msgid "' + t.gsub('"','\"') + '"' + "\n"
+    m += 'msgstr ""' + "\n\n"
+    @msgids.push({:linenos => l, :msgidstr => m})
+  end
+  def push_morelines(f)
+    l = [(1 + f.lineno).to_s]
+    m = 'msgid ""' + "\n"
 
-def morelines(f)
-  puts "#: #{Filename}:#{(1 + f.lineno).to_s}\n#, c-format\nmsgid \"\""
-  f.each{|a|
-    if a =~ /^\.Sh/ || a =~ /^\.Pp/
-      f.ungets a
-      break
-    end
-    puts "\"#{a.gsub("\n",'\n').gsub('"','\"')}\""
-  }
-  puts "msgstr \"\""
-  puts ""
+    f.each{|a|
+      if a =~ /^\.Sh/ || a =~ /^\.Pp/
+        f.ungets a
+        break
+      end
+      m += '"' + a.gsub("\n",'\n').gsub('"','\"') + '"' + "\n"
+    }
+
+    m += 'msgstr ""' + "\n\n"
+    @msgids.push({:linenos => l, :msgidstr => m})
+  end
+  def printout
+    @msgids.each_index{|i|
+      a = @msgids[i]
+      puts("#: #{Filename}:" + a[:linenos].join(" #{Filename}:"))
+      puts "#, c-format"
+      puts a[:msgidstr]
+    }
+  end
 end
 
 usage if ARGV.size != 1
@@ -74,12 +88,16 @@ msgstr ""
 
 EOF
 
+gmsgids = GettextMsgids.new
+
 while s = f.gets
   if s =~ /^\.Nd (.*)/
-    oneline(f, $1)
+    gmsgids.push_oneline(f, $1)
   elsif s =~ /^\.Sh NAME/ || s =~ /^\.Sh SYNOPSIS/ || s =~ /^\.Sh SEE ALSO/
     next
   elsif s =~ /^\.Sh/ || s =~ /^\.Pp/
-    morelines(f)
+    gmsgids.push_morelines(f)
   end
 end
+
+gmsgids.printout
