@@ -1,9 +1,9 @@
-Ac
-Ad
-An
-Ao
-Aq
-Ar
+Ac: グループ化終端？Aoで開始
+Ad: アンダーライン？
+An: 著者名表示？たまに-nosplitオプションを付けることがある
+Ao: グループ化開始？Acで終了
+Aq: ⟨⟩で囲う？メールアドレスとかによく使われる
+Ar: アンダーライン？
 At
 Bc
 Bd
@@ -14,7 +14,7 @@ Bo
 Bq
 Bro
 Bsx
-Bx
+Bx: "X.XBSD"
 Cd
 Cm
 D1
@@ -23,11 +23,11 @@ DFLTn
 DFLTu
 DFLTy
 Dc
-Dd
+Dd: 日付
 Dl
 Do
 Dq
-Dt
+Dt: マニュアル名+セクション番号
 Dv
 Ed
 Ef
@@ -36,36 +36,36 @@ El
 Em
 Er
 Ev
-Fa
-Fc
-Fd
+Fa: 関数引数
+Fc: Foで開始した関数定義の終端
+Fd: define
 Fl
-Fn
-Fo
-Ft
-Fx
+Fn: 関数本体
+Fo: 関数名
+Ft: 関数返り値
+Fx: "FreeBSD"
 Ic
-In
+In: include
 It
 Lb
 Li
 Lk
 Lp
-Nd
-Nm
+Nd: [line] Nmコマンドの直後で名前の説明？
+Nm: 名前の定義？後でNmコマンドだけで参照可能に
 No
 Ns
 Nx
 Oc
 Oo
 Op
-Os
+Os: ？Sh NAMEの直前にある
 Ox
 Pa
 Pc
 Pf
 Po
-Pp
+Pp: [split] 改行して1行空
 Pq
 Qc
 Ql
@@ -73,7 +73,7 @@ Qo
 Qq
 Re
 Rs
-Sh
+Sh: [split] 節タイトル。NAME,SYNOPSIS,SEE ALSO以外は要翻訳
 Sm
 So
 Sq
