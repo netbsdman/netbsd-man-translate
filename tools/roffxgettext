@@ -23,16 +23,24 @@ end
 
 class GettextMsgids
   def initialize
-    @msgids = []
+    @msgids = Hash.new
+  end
+  def _add_msgidstr(l, m)
+    if @msgids.has_key? m
+      @msgids[m].push l
+    else
+      @msgids[m] = [l]
+    end
   end
   def push_oneline(f, t)
-    l = [f.lineno.to_s]
+    l = f.lineno
     m = 'msgid "' + t.gsub('"','\"') + '"' + "\n"
     m += 'msgstr ""' + "\n\n"
-    @msgids.push({:linenos => l, :msgidstr => m})
+
+    _add_msgidstr l, m
   end
   def push_morelines(f)
-    l = [(1 + f.lineno).to_s]
+    l = (1 + f.lineno)
     m = 'msgid ""' + "\n"
 
     f.each{|a|
@@ -44,14 +52,16 @@ class GettextMsgids
     }
 
     m += 'msgstr ""' + "\n\n"
-    @msgids.push({:linenos => l, :msgidstr => m})
+
+    _add_msgidstr l, m
   end
   def printout
-    @msgids.each_index{|i|
-      a = @msgids[i]
-      puts("#: #{Filename}:" + a[:linenos].join(" #{Filename}:"))
+    vs = @msgids.values.sort{|a,b| a.first <=> b.first}
+
+    vs.each_index{|i|
+      puts("#: #{Filename}:" + vs[i].map{|mi| mi.to_s}.join(" #{Filename}:"))
       puts "#, c-format"
-      puts a[:msgidstr]
+      puts @msgids.index(vs[i])
     }
   end
 end
@@ -88,6 +98,7 @@ msgstr ""
 
 EOF
 
+# analyze roff
 gmsgids = GettextMsgids.new
 
 while s = f.gets
@@ -100,4 +111,5 @@ while s = f.gets
   end
 end
 
+# printout pot file
 gmsgids.printout
