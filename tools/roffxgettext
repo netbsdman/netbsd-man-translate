@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+require 'date'
+
+def usage
+  puts "Usage: roffgettext hoge.9 > hoge.9.pot"
+  exit 1
+end
+
+usage if ARGV.size != 1
+Filename = ARGV[0]
+
+# header
+f = File.open(Filename)
+Version = f.gets.scan(/\$.+\$/).first.gsub("$","")
+NowDate = DateTime.now
+NowDateStr = sprintf("%04d-%02d-%02d %02d:%02d%s",
+                     NowDate.year, NowDate.month, NowDate.day,
+                     NowDate.hour, NowDate.min, NowDate.zone.gsub(":",""))
+
+puts <<EOF
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: #{Version}\\n"
+"Report-Msgid-Bugs-To: kiwamu@debian.or.jp\\n"
+"POT-Creation-Date: #{NowDateStr}\\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"
+"Language-Team: LANGUAGE <LL@li.org>\\n"
+"MIME-Version: 1.0\\n"
+"Content-Type: text/plain; charset=CHARSET\\n"
+"Content-Transfer-Encoding: 8bit\\n"
+
+EOF
+
+def oneline(f, t)
+  puts "#: #{Filename}:#{f.lineno.to_s}"
+  puts "#, c-format"
+  puts "msgid \"#{t.gsub('"','\"')}\""
+  puts "msgstr \"\""
+  puts ""
+end
+
+def morelines(f)
+  puts "#: #{Filename}:#{(1 + f.lineno).to_s}\n#, c-format\nmsgid \"\""
+  nextline = nil
+  f.each{|a|
+    if a =~ /^\.Sh /
+      nextline = a
+      break
+    end
+    puts "\"#{a.gsub("\n",'\n').gsub('"','\"')}\""
+  }
+  puts "msgstr \"\""
+  puts ""
+  nextline
+end
+
+s_next = nil
+while s = s_next || f.gets
+  s_next = nil
+  if s =~ /^\.Nd (.*)/
+    oneline(f, $1)
+  elsif s =~ /^\.Sh NAME/ || s =~ /^\.Sh SYNOPSIS/ || s =~ /^\.Sh SEE ALSO/
+    next
+  elsif s =~ /^\.Sh /
+    s_next = morelines(f)
+  end
+end
