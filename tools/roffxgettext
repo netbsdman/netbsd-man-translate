@@ -3,7 +3,7 @@
 require 'date'
 
 def usage
-  puts "Usage: roffgettext hoge.9 > hoge.9.pot"
+  puts "Usage: roffxgettext hoge.9 > hoge.9.pot"
   exit 1
 end
 
