@@ -76,7 +76,6 @@ Filename = ARGV[0]
 
 # header
 f = UngetsFile.open(Filename)
-Version = f.gets.scan(/\$.+\$/).first.gsub("$","")
 NowDate = DateTime.now
 NowDateStr = sprintf("%04d-%02d-%02d %02d:%02d%s",
                      NowDate.year, NowDate.month, NowDate.day,
@@ -88,7 +87,6 @@ puts <<EOF
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Version: "#{Version}"
 #, fuzzy
 msgid ""
 msgstr ""
