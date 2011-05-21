@@ -32,9 +32,14 @@ class GettextMsgids
       @msgids[m] = [l]
     end
   end
+  def _escape(s)
+    a = []
+    s.each_char{|i| a.push "#{i=='\\'?"\\\\":i}"}
+    a.join.gsub("\n",'\n').gsub('"','\"')
+  end
   def push_oneline(f, t)
     l = f.lineno
-    m = 'msgid "' + t.gsub('"','\"') + '"' + "\n"
+    m = 'msgid "' + _escape(t) + '"' + "\n"
     m += 'msgstr ""' + "\n\n"
 
     _add_msgidstr l, m
@@ -48,7 +53,7 @@ class GettextMsgids
         f.ungets a
         break
       end
-      m += '"' + a.gsub("\n",'\n').gsub('"','\"') + '"' + "\n"
+      m += '"' + _escape(a) + '"' + "\n"
     }
 
     m += 'msgstr ""' + "\n\n"
@@ -60,7 +65,7 @@ class GettextMsgids
 
     vs.each_index{|i|
       puts("#: #{Filename}:" + vs[i].map{|mi| mi.to_s}.join(" #{Filename}:"))
-      puts "#, c-format"
+#      puts "#, c-format"
       puts @msgids.index(vs[i])
     }
   end
