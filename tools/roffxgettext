@@ -19,6 +19,15 @@ class UngetsFile < File
       super
     end
   end
+  def lineno
+    @ungetsed = [] unless @ungetsed
+    super - @ungetsed.size
+  end
+  def each
+    while s = self.gets
+      yield s
+    end
+  end
 end
 
 class GettextMsgids
@@ -45,6 +54,11 @@ class GettextMsgids
     _add_msgidstr l, m
   end
   def push_morelines(f)
+    # check next line
+    s = f.gets
+    f.ungets s
+    return if s =~ /^\.Sh/ || s =~ /^\.Pp/
+
     l = (1 + f.lineno)
     m = 'msgid ""' + "\n"
 
