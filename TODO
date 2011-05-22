@@ -1,3 +1,4 @@
 * translate: complete uvm.9 translation
 * script: check original update
 * html: [BUG] link to manpage from manpage (between different sections)
+* gettext: use po4a.
