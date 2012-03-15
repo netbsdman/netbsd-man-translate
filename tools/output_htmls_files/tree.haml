@@ -54,12 +54,12 @@
   %input{:type => "text", :name => "q"}
 %hr
 .dirtree
-  %h2 src/share/man/man9
+  %h2 man9
   %ul{:class => "mantree"}
-    - `find src/share/man/man9 -name "*.html"`.reject{|a| a =~ /\.ja\.html/}.sort.each do |a| a.chop!
+    - `find org_netbsd/src/share/man/man9 -name "*.html"`.sort.each do |a| a.chop!
       %li{:class => "mantreeitem"}
-        %a{:href => "#{a}", :target => "manpage"} #{a.sub("src/share/man/man9/","").sub(/\.html$/,"")}
-        - j = a.sub(/html$/, "ja.html")
+        %a{:href => "#{a}", :target => "manpage"} #{a.sub("org_netbsd/src/share/man/man9/","").sub(/\.html$/,"")}
+        - j = a.sub(/^org_netbsd/, "translated").sub(/man\/man/, "man/ja/man")
         - if File.exist? j then
           [
           %a{:href => "#{j}", :target => "manpage"}> ja
