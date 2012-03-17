@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netbsd-man-translabe\n"
 "POT-Creation-Date: 2012-03-15 22:52+0900\n"
-"PO-Revision-Date: 2012-03-17 10:16+0900\n"
+"PO-Revision-Date: 2012-03-17 17:20+0900\n"
 "Last-Translator: Kiwamu Okabe <kiwamu@debian.or.jp>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -855,7 +855,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:80
 #, no-wrap
 msgid "EXAMPLES"
-msgstr ""
+msgstr "EXAMPLES"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:63
@@ -1184,7 +1184,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/nmi.9:131
 #, no-wrap
 msgid "AUTHORS"
-msgstr ""
+msgstr "AUTHORS"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:70
@@ -1498,7 +1498,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.i386/return_address.9:74
 #, no-wrap
 msgid "RETURN VALUES"
-msgstr ""
+msgstr "RETURN VALUES"
 
 #.  ------------------------------------------------------------
 #. type: Plain text
@@ -1694,7 +1694,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.sun3/isr_add.9:123
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "BUGS"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/SET.9:71
@@ -2133,7 +2133,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/nmi.9:126
 #, no-wrap
 msgid "HISTORY"
-msgstr ""
+msgstr "HISTORY"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/accept_filter.9:151
@@ -3370,7 +3370,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/nmi.9:117
 #, no-wrap
 msgid "CODE REFERENCES"
-msgstr ""
+msgstr "CODE REFERENCES"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/arp.9:138
@@ -4765,7 +4765,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/uiomove.9:34
 #, no-wrap
 msgid "sys/systm.h"
-msgstr ""
+msgstr "sys/systm.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/bcdtobin.9:43
@@ -5108,7 +5108,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/wsmouse.9:55
 #, no-wrap
 msgid "DATA TYPES"
-msgstr ""
+msgstr "DATA TYPES"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/bluetooth.9:89
@@ -13693,7 +13693,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:30
 #, no-wrap
 msgid "May 24, 2002"
-msgstr ""
+msgstr "May 24, 2002"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/cpu_dumpconf.9:31
@@ -13844,23 +13844,23 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:31
 #, no-wrap
 msgid "CPU_INITCLOCKS 9"
-msgstr ""
+msgstr "CPU_INITCLOCKS 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:35
 msgid "E<.Nm cpu_initclocks>"
-msgstr ""
+msgstr "E<.Nm cpu_initclocks>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:35
 #, no-wrap
 msgid "machine-dependent clock setup interface"
-msgstr ""
+msgstr "マシン依存クロックのセットアップ"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:40
 msgid "E<.Ft void> E<.Fn cpu_initclocks \"void\">"
-msgstr ""
+msgstr "E<.Ft void> E<.Fn cpu_initclocks \"void\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:47
@@ -13870,18 +13870,20 @@ msgid ""
 "dependent initialization of clock frequencies and start the real-time and "
 "statistic clocks running."
 msgstr ""
+"E<.Fn cpu_initclocks> 関数は、システムの起動中 autoconfiguration 完了後すみやかに E<.Fn initclocks> 関数から呼び出される。\n"
+"この関数はマシン依存のクロック周波数を設定し、実時間クロックと統計測定を開始する。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:51
 msgid ""
 "Machine-independent clock interface operations are performed within the file "
 "E<.Pa sys/kern/kern_clock.c>."
-msgstr ""
+msgstr "マシン非依存クロック操作は E<.Pa sys/kern/kern_clock.c> ファイルで実装されている。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_initclocks.9:52
 msgid "E<.Xr autoconf 9>"
-msgstr ""
+msgstr "E<.Xr autoconf 9>"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/cpu_lwp_fork.9:31
@@ -13913,7 +13915,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/suspendsched.9:37
 #, no-wrap
 msgid "sys/proc.h"
-msgstr ""
+msgstr "sys/proc.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_lwp_fork.9:45
@@ -14100,9 +14102,8 @@ msgid ""
 "number for the E<.Tn CPU> that this thread is running on.  It may also be "
 "implemented as a macro."
 msgstr ""
-"The E<.Fn cpu_number> 関数はユニークな E<.Tn CPU> 識別番号を返す。上記番号は"
-"自スレッドが動作している E<.Tn CPU> を示している。このインターフェイスは関数"
-"ではなくマクロとして実装される可能性がある。"
+"The E<.Fn cpu_number> 関数はユニークな E<.Tn CPU> 識別番号を返す。上記番号は自スレッドが動作している E<.Tn CPU> を示している。\n"
+"このインターフェイスは関数ではなくマクロとして実装される可能性がある。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:53
@@ -14862,7 +14863,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/userret.9:38
 #, no-wrap
 msgid "sys/sched.h"
-msgstr ""
+msgstr "sys/sched.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/csf.9:86
@@ -32223,37 +32224,37 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/kcopy.9:30
 #, no-wrap
 msgid "April 4, 2006"
-msgstr ""
+msgstr "April 4, 2006"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/kcopy.9:31
 #, no-wrap
 msgid "KCOPY 9"
-msgstr ""
+msgstr "KCOPY 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/kcopy.9:35
 msgid "E<.Nm kcopy>"
-msgstr ""
+msgstr "E<.Nm kcopy>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/kcopy.9:35
 #, no-wrap
 msgid "copy data with abort on page fault"
-msgstr ""
+msgstr "ページフォルトによるアボート中のデータコピー"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/kcopy.9:40
 msgid ""
 "E<.Ft int> E<.Fn kcopy \"const void *src\" \"void *dst\" \"size_t len\">"
-msgstr ""
+msgstr "E<.Ft int> E<.Fn kcopy \"const void *src\" \"void *dst\" \"size_t len\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/kcopy.9:49
 msgid ""
 "E<.Fn kcopy> copies E<.Fa len> bytes from E<.Fa src> to E<.Fa dst>, aborting "
 "if a fatal page fault is encountered."
-msgstr ""
+msgstr "致命的ページフォルトが発生してアボート中においても、 E<.Fn kcopy> は E<.Fa src> から E<.Fa dst> へ E<.Fa len> バイト分データコピーする。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/kcopy.9:56
@@ -32262,11 +32263,14 @@ msgid ""
 "by E<.Xr uiomove 9>, which may be in the path of servicing a non-fatal page "
 "fault.  E<.Fn kcopy> returns 0 on success and an error number on failure."
 msgstr ""
+"E<.Xr uiomove 9> によって引き起こされた(古い)ページフォルトハンドラを E<.Fn kcopy> は保存/復元をしなければならない。\n"
+"なぜなら致命的でない通常のページフォルトの処理中のであるかもしれないから。\n"
+"E<.Fn kcopy> は成功すると0を返し、失敗するとエラー番号を返す。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/kcopy.9:59
 msgid "E<.Xr errno 2>, E<.Xr memcpy 9>, E<.Xr uiomove 9>"
-msgstr ""
+msgstr "E<.Xr errno 2>, E<.Xr memcpy 9>, E<.Xr uiomove 9>"
 
 #. type: Dd
 #: org_netbsd/src/share/man/man9/kcpuset.9:28
@@ -34157,18 +34161,18 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/log.9:30
 #, no-wrap
 msgid "May 12, 1997"
-msgstr ""
+msgstr "May 12, 1997"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/log.9:31
 #, no-wrap
 msgid "LOG 9"
-msgstr ""
+msgstr "LOG 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:35
 msgid "E<.Nm log>"
-msgstr ""
+msgstr "E<.Nm log>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/log.9:35
@@ -48523,34 +48527,34 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/preempt.9:30
 #, no-wrap
 msgid "July 3, 2007"
-msgstr ""
+msgstr "July 3, 2007"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/preempt.9:31
 #, no-wrap
 msgid "PREEMPT 9"
-msgstr ""
+msgstr "PREEMPT 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/preempt.9:36
 msgid "E<.Nm preempt>, E<.Nm yield>"
-msgstr ""
+msgstr "E<.Nm preempt>, E<.Nm yield>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/preempt.9:36
 #, no-wrap
 msgid "general preempt and yield functions"
-msgstr ""
+msgstr "一般的な preempt と yield 関数"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/preempt.9:41
 msgid "E<.Ft void> E<.Fn preempt \"void\">"
-msgstr ""
+msgstr "E<.Ft void> E<.Fn preempt \"void\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/preempt.9:44
 msgid "E<.Ft void> E<.Fn yield \"void\">"
-msgstr ""
+msgstr "E<.Ft void> E<.Fn yield \"void\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/preempt.9:54
@@ -48560,13 +48564,15 @@ msgid ""
 "is mostly same as E<.Fn preempt>, except that it performs a voluntary "
 "context switch."
 msgstr ""
+"E<.Fn preempt> 関数は現在の LWP をランキューに戻し、意識しないコンテキストスイッチを行なう。\n"
+"E<.Fn yield> 関数は E<.Fn preempt> と良く似ているが、自発的なコンテキストスイッチを行なう。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/preempt.9:56
 msgid ""
 "These functions drop the kernel lock before switching and re-acquire it "
 "before returning."
-msgstr ""
+msgstr "これらの関数はロック中のカーネルロックを手放し、再スケジューリングされる前に自動的に左記のロックを取得する。"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/proc_find.9:31
@@ -48777,24 +48783,24 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/putter.9:27
 #, no-wrap
 msgid "November 21, 2007"
-msgstr ""
+msgstr "November 21, 2007"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/putter.9:28
 #, no-wrap
 msgid "PUTTER 9"
-msgstr ""
+msgstr "PUTTER 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/putter.9:32
 msgid "E<.Nm putter>"
-msgstr ""
+msgstr "E<.Nm putter>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/putter.9:32
 #, no-wrap
 msgid "Pass-to-Userspace Transporter"
-msgstr ""
+msgstr "ユーザ空間パス転送"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/putter.9:43
@@ -48805,16 +48811,19 @@ msgid ""
 "of the facility must fill out the callbacks in E<.Va struct putter_ops> to "
 "integrate with E<.Nm>."
 msgstr ""
+"E<.Nm> サブシステムはユーザ空間内コンポーネントへの要求/応答手段として用いられる。\n"
+"現状では、本サブシステムのデータ構造や I/O ルーチンをファイルディスクリプタに関連付ける機能を持つ。\n"
+"E<.Nm> を使用するには E<.Va struct putter_ops> のメンバであるコールバック関数を埋めなければならない。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/putter.9:46
 msgid "E<.Xr pud 4>, E<.Xr puffs 4>"
-msgstr ""
+msgstr "E<.Xr pud 4>, E<.Xr puffs 4>"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/putter.9:48
 msgid "Under construction.  Interfaces may and will change."
-msgstr ""
+msgstr "作成中。将来インターフェイスに変更がある可能性有り。"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/radio.9:28
@@ -53431,29 +53440,29 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/secmodel_securelevel.9:281
 #: org_netbsd/src/share/man/man9/secmodel_suser.9:92
 msgid "E<.An Elad Efrat Aq elad@NetBSD.org>"
-msgstr ""
+msgstr "E<.An Elad Efrat Aq elad@NetBSD.org>"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:29
 #, no-wrap
 msgid "SECMODEL_BSD44 9"
-msgstr ""
+msgstr "SECMODEL_BSD44 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:33
 msgid "E<.Nm secmodel_bsd44>"
-msgstr ""
+msgstr "E<.Nm secmodel_bsd44>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:33
 #, no-wrap
 msgid "traditional"
-msgstr ""
+msgstr "伝統的な"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:37
 msgid "E<.Nx> security model (based on E<.Bx 4.4>)"
-msgstr ""
+msgstr "E<.Nx> セキュリティモデル ( E<.Bx 4.4> ベース)"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:48
@@ -53463,13 +53472,17 @@ msgid ""
 "security models: E<.Xr secmodel_extensions 9>, E<.Xr secmodel_securelevel 9> "
 "and E<.Xr secmodel_suser 9>."
 msgstr ""
+"E<.Nm> は E<.Nx> デフォルトのセキュリティモデル。\n"
+"これは E<.Bx 4.4> を元にした伝統的なセキュリティモデルで、\n"
+"E<.Xr secmodel_extensions 9> , E<.Xr secmodel_securelevel 9> , E<.Xr secmodel_suser 9> ,\n"
+"3つのセキュリティモデルから構成されている。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/secmodel_bsd44.9:54
 msgid ""
 "E<.Xr kauth 9>, E<.Xr secmodel 9>, E<.Xr secmodel_extensions 9>, E<.Xr "
 "secmodel_securelevel 9>, E<.Xr secmodel_suser 9>"
-msgstr ""
+msgstr "E<.Xr kauth 9>, E<.Xr secmodel 9>, E<.Xr secmodel_extensions 9>, E<.Xr secmodel_securelevel 9>, E<.Xr secmodel_suser 9>"
 
 #. type: Dd
 #: org_netbsd/src/share/man/man9/secmodel_extensions.9:30
@@ -56081,29 +56094,29 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/suspendsched.9:30
 #, no-wrap
 msgid "September 21, 2002"
-msgstr ""
+msgstr "September 21, 2002"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/suspendsched.9:31
 #, no-wrap
 msgid "SUSPENDSCHED 9"
-msgstr ""
+msgstr "SUSPENDSCHED 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/suspendsched.9:35
 msgid "E<.Nm suspendsched>"
-msgstr ""
+msgstr "E<.Nm suspendsched>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/suspendsched.9:35
 #, no-wrap
 msgid "suspend the scheduler"
-msgstr ""
+msgstr "スケジューラをサスペンド"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/suspendsched.9:41
 msgid "E<.Ft void> E<.Fn suspendsched \"void\">"
-msgstr ""
+msgstr "E<.Ft void> E<.Fn suspendsched \"void\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/suspendsched.9:46
@@ -56112,13 +56125,15 @@ msgid ""
 "stopping all non-system processes which are on the run queue or the sleep "
 "queue."
 msgstr ""
+"E<.Fn suspendsched> 関数はランキューもしくはスリープキューに繋がれた\n"
+"システム向けでないプロセス全ての動作をサスペンドさせる。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/suspendsched.9:49
 msgid ""
 "The E<.Fn suspendsched> function must not be called with the scheduler lock "
 "held."
-msgstr ""
+msgstr "スケジューラをロックしたまま E<.Fn suspendsched> 関数を呼んではならない。"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/sysctl.9:31
@@ -63470,24 +63485,24 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/vfs.9:30
 #, no-wrap
 msgid "September 22, 2001"
-msgstr ""
+msgstr "September 22, 2001"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/vfs.9:31
 #, no-wrap
 msgid "VFS 9"
-msgstr ""
+msgstr "VFS 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/vfs.9:35
 msgid "E<.Nm vfs>"
-msgstr ""
+msgstr "E<.Nm vfs>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/vfs.9:35
 #, no-wrap
 msgid "kernel interface to file systems"
-msgstr ""
+msgstr "ファイルシステム向けカーネルインターフェイス"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/vfs.9:43
@@ -63497,6 +63512,9 @@ msgid ""
 "also specifies the core functionality that a file system must provide to the "
 "kernel."
 msgstr ""
+"仮想ファイルシステムである E<.Nm> はファイルシステムへのカーネルインターフェイス。\n"
+"このインターフェイスはファイルシステムアクセスのカーネル呼び出しを規定する。\n"
+"またファイルシステムというものがカーネルに提供する中核となる機能についても規定する。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/vfs.9:52
@@ -63505,11 +63523,13 @@ msgid ""
 "vnode 9>.  File system operations such as mounting and syncing are discussed "
 "in E<.Xr vfsops 9>."
 msgstr ""
+"E<.Nm> の動作の焦点は E<.Em vnode> であり、 E<.Xr vnode 9> で議論する。\n"
+"マウントや同期のようなファイルシステム操作は E<.Xr vfsops 9> で議論する。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/vfs.9:56
 msgid "E<.Xr intro 9>, E<.Xr vfsops 9>, E<.Xr vnode 9>, E<.Xr vnodeops 9>"
-msgstr ""
+msgstr "E<.Xr intro 9>, E<.Xr vfsops 9>, E<.Xr vnode 9>, E<.Xr vnodeops 9>"
 
 #. type: Dd
 #: org_netbsd/src/share/man/man9/vfs_hooks.9:30
