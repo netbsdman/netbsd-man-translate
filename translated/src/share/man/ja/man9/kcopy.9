@@ -1,4 +1,4 @@
-.\"     $NetBSD: cpu_number.9,v 1.3 2008/04/30 13:10:58 martin Exp $
+.\"     $NetBSD: kcopy.9,v 1.5 2006/04/04 20:48:21 wiz Exp $
 .\"
 .\" Copyright (c) 2002 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -32,27 +32,35 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.Dd April 13, 2010
-.Dt CPU_NUMBER 9
+.Dd April 4, 2006
+.Dt KCOPY 9
 .Os
 .Sh NAME
-.Nm cpu_number
-.Nd ユニークな
-.Tn CPU
-識別番号
+.Nm kcopy
+.Nd ページフォルトによるアボート中のデータコピー
 .Sh SYNOPSIS
-.In sys/types.h
-.In machine/cpu.h
-.Ft cpuid_t
-.Fn cpu_number "void"
+.In sys/systm.h
+.Ft int
+.Fn kcopy "const void *src" "void *dst" "size_t len"
 .Sh DESCRIPTION
-The
-.Fn cpu_number
-関数はユニークな
-.Tn CPU
-識別番号を返す。上記番号は自スレッドが動作している
-.Tn CPU
-を示している。
-このインターフェイスは関数ではなくマクロとして実装される可能性がある。
+致命的ページフォルトが発生してアボート中においても、
+.Fn kcopy
+は
+.Fa src
+から
+.Fa dst
+へ
+.Fa len
+バイト分データコピーする。
+.Pp
+.Xr uiomove 9
+によって引き起こされた(古い)ページフォルトハンドラを
+.Fn kcopy
+は保存/復元をしなければならない。
+なぜなら致命的でない通常のページフォルトの処理中のであるかもしれないから。
+.Fn kcopy
+は成功すると0を返し、失敗するとエラー番号を返す。
 .Sh SEE ALSO
-.Xr curcpu 9
+.Xr errno 2 ,
+.Xr memcpy 9 ,
+.Xr uiomove 9

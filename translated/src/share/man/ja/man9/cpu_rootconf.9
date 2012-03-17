@@ -1,4 +1,4 @@
-.\"     $NetBSD: cpu_number.9,v 1.3 2008/04/30 13:10:58 martin Exp $
+.\"     $NetBSD: cpu_rootconf.9,v 1.5 2008/04/30 13:10:58 martin Exp $
 .\"
 .\" Copyright (c) 2002 The NetBSD Foundation, Inc.
 .\" All rights reserved.
@@ -33,26 +33,37 @@
 .\"
 .\"*******************************************************************
 .Dd April 13, 2010
-.Dt CPU_NUMBER 9
+.Dt CPU_ROOTCONF 9
 .Os
 .Sh NAME
-.Nm cpu_number
-.Nd ユニークな
-.Tn CPU
-識別番号
+.Nm cpu_rootconf ,
+.Nm setroot
+.Nd root file system setup
 .Sh SYNOPSIS
 .In sys/types.h
-.In machine/cpu.h
-.Ft cpuid_t
-.Fn cpu_number "void"
+.In sys/systm.h
+.Ft void
+.Fn cpu_rootconf "void"
+.Ft void
+.Fn setroot "device_t bootdv" "int bootpartition"
 .Sh DESCRIPTION
 The
-.Fn cpu_number
-関数はユニークな
-.Tn CPU
-識別番号を返す。上記番号は自スレッドが動作している
-.Tn CPU
-を示している。
-このインターフェイスは関数ではなくマクロとして実装される可能性がある。
+.Fn cpu_rootconf
+is a machine-dependent interface invoked during
+system bootstrap to determine the root file system device and initialize
+machine-dependent file system state.
+.Pp
+The
+.Fn cpu_rootconf
+function invokes the machine-independent
+.Fn setroot
+function to record the boot/root device
+.Fa bootdv
+and the boot
+partition information
+.Fa bootpartition
+for use in machine-independent
+code.
 .Sh SEE ALSO
-.Xr curcpu 9
+.Xr boot 8 ,
+.Xr boothowto 9
