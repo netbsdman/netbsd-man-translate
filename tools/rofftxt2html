@@ -40,7 +40,7 @@ use utf8;
 use encoding ("utf-8");
 
 # $BASE = "__WILL_REPLACE__";
-$GITORIOUS = "http://gitorious.org/netbsd-man-translate/netbsd-man-translate/blobs/master/ja/";
+$GITORIOUS = "http://gitorious.org/netbsd-man-translate/netbsd-man-translate/blobs/master/";
 
 sub html_header2 {
     my ( $title, $head ) = @_;
