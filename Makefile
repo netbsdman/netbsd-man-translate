@@ -11,8 +11,8 @@ update-org_netbsd:
 	mkdir -p org_netbsd
 	cd org_netbsd/ && cvs -d /home/kiwamu/cvs_mirror/NetBSD-CVSROOT co src/share/man/man9
 	rm -rf `find org_netbsd -name CVS`
-	@echo 'po4a-gettextize...'
-	@po4a-gettextize -f man $(shell for i in $(MAN9); do echo -m $$i; done) -p po/translation.pot
+#	@echo 'po4a-gettextize...'
+#	@po4a-gettextize -f man $(shell for i in $(MAN9); do echo -m $$i; done) -p po/translation.pot
 	@echo '! Check man pages on "org_netbsd" directory, and git commit them. !'
 
 build-stamp: $(MAN9) po/ja.po
