@@ -23,7 +23,7 @@ build-stamp: $(MAN9) po/ja.po
 	po4a po4a.cfg
 	touch $@
 
-htmlize: build-stamp
+htmlize:
 	rm -rf html
 	mkdir -p html
 	for i in `find org_netbsd/ translated/ -name "*.9"`; do \
