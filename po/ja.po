@@ -1,3 +1,21 @@
+# netbsd-man-translate
+# Copyright (C) 2012 The NetBSD Foundation, Inc.
+# All rights reserved.
+# Kiwamu Okabe <kiwamu@debian.or.jp>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: netbsd-man-translabe\n"
+"POT-Creation-Date: 2012-03-15 22:52+0900\n"
+"PO-Revision-Date: 2012-03-17 10:16+0900\n"
+"Last-Translator: Kiwamu Okabe <kiwamu@debian.or.jp>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 #. type: Dd
 #: org_netbsd/src/share/man/man9/CTASSERT.9:30
 #: org_netbsd/src/share/man/man9/sysmon_taskq.9:30
@@ -262,7 +280,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:33
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NAME"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:35
@@ -512,7 +530,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:36
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNOPSIS"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:39
@@ -770,7 +788,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:40
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPTION"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:45
@@ -1081,7 +1099,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:96
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "SEE ALSO"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/CTASSERT.9:67
@@ -1566,7 +1584,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/physio.9:30
 #, no-wrap
 msgid "April 13, 2010"
-msgstr ""
+msgstr "April 13, 2010"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/SET.9:31
@@ -1602,7 +1620,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/store.9:48
 #, no-wrap
 msgid "sys/types.h"
-msgstr ""
+msgstr "sys/types.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/SET.9:44
@@ -4345,7 +4363,7 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:88
 #, no-wrap
 msgid "FUNCTIONS"
-msgstr ""
+msgstr "FUNCTIONS"
 
 #. type: It
 #: org_netbsd/src/share/man/man9/autoconf.9:134
@@ -14045,35 +14063,35 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/cpu_number.9:31
 #, no-wrap
 msgid "CPU_NUMBER 9"
-msgstr ""
+msgstr "CPU_NUMBER 9"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:35
 msgid "E<.Nm cpu_number>"
-msgstr ""
+msgstr "E<.Nm cpu_number>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/cpu_number.9:35
 #, no-wrap
 msgid "unique"
-msgstr ""
+msgstr "ユニークな"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:38
 msgid "E<.Tn CPU> identification number"
-msgstr ""
+msgstr "E<.Tn CPU> 識別番号"
 
 #. type: In
 #: org_netbsd/src/share/man/man9/cpu_number.9:40
 #: org_netbsd/src/share/man/man9/curproc.9:75
 #, no-wrap
 msgid "machine/cpu.h"
-msgstr ""
+msgstr "machine/cpu.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:43
 msgid "E<.Ft cpuid_t> E<.Fn cpu_number \"void\">"
-msgstr ""
+msgstr "E<.Ft cpuid_t> E<.Fn cpu_number \"void\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:52
@@ -14082,11 +14100,14 @@ msgid ""
 "number for the E<.Tn CPU> that this thread is running on.  It may also be "
 "implemented as a macro."
 msgstr ""
+"The E<.Fn cpu_number> 関数はユニークな E<.Tn CPU> 識別番号を返す。上記番号は"
+"自スレッドが動作している E<.Tn CPU> を示している。このインターフェイスは関数"
+"ではなくマクロとして実装される可能性がある。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/cpu_number.9:53
 msgid "E<.Xr curcpu 9>"
-msgstr ""
+msgstr "E<.Xr curcpu 9>"
 
 #. type: Dd
 #: org_netbsd/src/share/man/man9/cpu_reboot.9:35
@@ -73024,30 +73045,30 @@ msgstr ""
 #: org_netbsd/src/share/man/man9/man9.x86/x86_msr_xcall.9:30
 #, no-wrap
 msgid "October 25, 2011"
-msgstr ""
+msgstr "October 25, 2011"
 
 #. type: Dt
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:31
 #, no-wrap
 msgid "TSC 9 x86"
-msgstr ""
+msgstr "TSC 9 x86"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:35
 msgid "E<.Nm tsc>"
-msgstr ""
+msgstr "E<.Nm tsc>"
 
 #. type: Nd
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:35
 #, no-wrap
 msgid "Time Stamp Counter"
-msgstr ""
+msgstr "タイムスタンプカウンタ"
 
 #. type: In
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:37
 #, no-wrap
 msgid "x86/x86/tsc.h"
-msgstr ""
+msgstr "x86/x86/tsc.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:48
@@ -73057,6 +73078,10 @@ msgid ""
 "tsc_sync_bp \"struct cpu_info *ci\"> E<.Ft void> E<.Fn tsc_sync_drift "
 "\"int64_t drift\">"
 msgstr ""
+"E<.Ft uint64_t> E<.Fn rdtsc \"void\"> E<.Ft void> E<.Fn tsc_tc_init \"void"
+"\"> E<.Ft void> E<.Fn tsc_sync_ap \"struct cpu_info *ci\"> E<.Ft void> E<.Fn "
+"tsc_sync_bp \"struct cpu_info *ci\"> E<.Ft void> E<.Fn tsc_sync_drift "
+"\"int64_t drift\">"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/man9.x86/tsc.9:59
