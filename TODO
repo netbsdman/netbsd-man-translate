@@ -1,4 +1,3 @@
-* po4a should change .Pa to inline, see log.9 file
 * auto memo NetBSD CVS version or date of cvs checkout
 * translate: complete uvm.9 translation
 * html: [BUG] link to manpage from manpage (between different sections)
