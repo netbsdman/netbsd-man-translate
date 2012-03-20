@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netbsd-man-translabe\n"
 "POT-Creation-Date: 2012-03-15 22:52+0900\n"
-"PO-Revision-Date: 2012-03-17 17:20+0900\n"
+"PO-Revision-Date: 2012-03-20 23:16+0900\n"
 "Last-Translator: Kiwamu Okabe <kiwamu@debian.or.jp>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -34178,25 +34178,25 @@ msgstr "E<.Nm log>"
 #: org_netbsd/src/share/man/man9/log.9:35
 #, no-wrap
 msgid "log a message from the kernel through the"
-msgstr ""
+msgstr "カーネルからのメッセージログを"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:38
 msgid "E<.Pa /dev/klog> device"
-msgstr ""
+msgstr "E<.Pa /dev/klog> デバイスを通して取得"
 
 #. type: In
 #: org_netbsd/src/share/man/man9/log.9:39
 #, no-wrap
 msgid "sys/syslog.h"
-msgstr ""
+msgstr "sys/syslog.h"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:46
 msgid ""
 "E<.Ft void> E<.Fo \"log\"> E<.Fa \"int level\"> E<.Fa \"const char *format"
 "\"> E<.Fa \"...\"> E<.Fc>"
-msgstr ""
+msgstr "E<.Ft void> E<.Fo \"log\"> E<.Fa \"int level\"> E<.Fa \"const char *format\"> E<.Fa \"...\"> E<.Fc>"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:57
@@ -34205,6 +34205,9 @@ msgid ""
 "listening on E<.Pa /dev/klog>.  Usually E<.Xr syslogd 8> monitors E<.Pa /dev/"
 "klog> for these messages and writes them to a log file."
 msgstr ""
+"E<.Fn log> をカーネルが使うことで、 E<.Pa /dev/klog> を監視しているユーザプロセスにメッセージを送る。\n"
+"通例 E<.Xr syslogd 8> は E<.Pa /dev/klog> を監視していて、\n"
+"これらのメッセージをログファイルに書き込む。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:63
@@ -34212,11 +34215,13 @@ msgid ""
 "All messages are logged using facility E<.Dv LOG_KERN>.  See E<.Xr syslog 3> "
 "for a listing of log levels."
 msgstr ""
+"すべてのログメッセージにはログレベル E<.Dv LOG_KERN> が適用される。\n"
+"ログレベルについての詳細は E<.Xr syslog 3> を参照。"
 
 #. type: Plain text
 #: org_netbsd/src/share/man/man9/log.9:65
 msgid "E<.Xr syslog 3>, E<.Xr syslogd 8>"
-msgstr ""
+msgstr "E<.Xr syslog 3>, E<.Xr syslogd 8>"
 
 #. type: Dd
 #: org_netbsd/src/share/man/man9/ltsleep.9:30

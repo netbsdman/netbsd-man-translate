@@ -37,9 +37,9 @@
 .Os
 .Sh NAME
 .Nm log
-.Nd log a message from the kernel through the
+.Nd カーネルからのメッセージログを
 .Pa /dev/klog
-device
+デバイスを通して取得
 .Sh SYNOPSIS
 .In sys/syslog.h
 .Ft void
@@ -49,22 +49,23 @@ device
 .Fa "..."
 .Fc
 .Sh DESCRIPTION
-The
 .Fn log
-function allows the kernel to send messages to user processes
-listening on
-.Pa /dev/klog .
-Usually
-.Xr syslogd 8
-monitors
+をカーネルが使うことで、
 .Pa /dev/klog
-for these messages and writes them to a log file.
+を監視しているユーザプロセスにメッセージを送る。
+通例
+.Xr syslogd 8
+は
+.Pa /dev/klog
+を監視していて、
+これらのメッセージをログファイルに書き込む。
 .Pp
-All messages are logged using facility
-.Dv LOG_KERN .
-See
+すべてのログメッセージにはログレベル
+.Dv LOG_KERN
+が適用される。
+ログレベルについての詳細は
 .Xr syslog 3
-for a listing of log levels.
+を参照。
 .Sh SEE ALSO
 .Xr syslog 3 ,
 .Xr syslogd 8
